@@ -20,7 +20,7 @@ public class HotPointController {
     @Resource
     private HotPointService hotPointService;
 
-    //热点资讯查询的跳转路径=
+    //热点资讯查询的跳转路径
     @RequestMapping("toIndex")
     public String toIndex(){
         return "index";
