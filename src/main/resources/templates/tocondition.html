@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+    <input type="hidden" name="id" th:value="${id}"/>
+</head>
+<body>
+    <div class="max">
+        <!--<div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;"><a href="">返回</a></div><div align="center" style="float: left"><h2>牛奶蛋白过敏</h2></div></div>
+        <div id="center" style="width: 100%">
+            <div style="margin-left: 100px;"><h1>关于食物蛋白又到的过敏性直肠结肠炎的治疗</h1></div>
+            <div align="center" style="width: 500px;height: 300px;">111111111</div>
+            <div style="width: 99.5%"><span><h2>食物过敏是指由免疫机制介导的食物不良反应，包括IgE介导和非IgE介导的过敏反应，食物蛋白诱导的直肠结肠炎又称为过敏性直肠结肠炎，由非lgE介导的胃肠道食物变态反应，病变主要累及直肠及乙状结肠，目前发病机制尚不清楚，通常由母亲摄入致敏食物蛋白后通过乳汁介导婴儿机体免疫识别，从而引发过敏反应，常见致敏食物有牛奶、豆类、鱼、鸡蛋、小麦，其中以牛奶蛋白过敏最为常见。</h2></span></div>
+        </div>
+        <div id="bottom" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;">1111111</div>-->
+    </div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        condition(id);
+    })
+    var id=$("[name='id']").val();
+    function condition(id) {
+        $.ajax({
+            url:'/queryCondition?id='+1,
+            type:'post',
+            success:function (result) {
+                var html = "";
+                for (var i = 0; i<result.length; i++){
+                    html+="<div id=\"top\" style=\"background-color: lightgoldenrodyellow;width: 100%; height: 50px;\" ><div style=\"float: left;margin-top: 2px;margin-left: 10px;\"><h4>返回</h4></div><div align=\"center\"><h2>"+result[i].maxTitle+"</h2></div></div>"
+                    html+="<div id=\"center\" style=\"width: 100%\">"
+                    html+="<div style=\"margin-left: 100px;\"><h1>"+result[i].minTitle+"</h1></div>"
+                    html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result[i].videoPath+"' type=\"video/mp4\"></video>"
+                    html+="<div style=\"width: 99.5%\"><span><h2>"+result[i].details+"</h2></span></div>"
+                    html+="</div>"
+                    html+="<div id=\"bottom\" style=\"background-color: lightgoldenrodyellow;width: 100%; height: 120px;margin-top: 10px;position:fixed;bottom: 0px;\">" +
+                        "<div style='width: 150px;line-height: 35px;float: left;margin-left: 150px;'><img style='width: 95px;height: 50px;' src='/lxb/images/timg.jpg'/><span><h3>临床文献</h3></span></div>" +
+                        "<div style='width: 150px;line-height: 35px;float: left;margin-left: 150px;'><img style='width: 95px;height: 50px;' src='/lxb/images/timg.jpg'/><span><h3>专家灼见</h3></span></div>" +
+                        "<div style='width: 150px;line-height: 35px;float: left;margin-left: 150px;'><img style='width: 95px;height: 50px;' src='/lxb/images/timg.jpg'/><span><h3>病例荟萃</h3></span></div>" +
+                        "<div style='width: 150px;line-height: 35px;float: left;margin-left: 150px;'><img style='width: 95px;height: 50px;' src='/lxb/images/timg.jpg'/><span><h3>使用工具</h3></span></div>"
+                        "</div>"
+                 }
+                $(".max").html(html)
+            }
+        })
+    }
+
+</script>
+</html>
