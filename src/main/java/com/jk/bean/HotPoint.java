@@ -14,7 +14,7 @@ public class HotPoint {
 
     private String title; //标题
 
-    private String total; //图片
+    private String photo; //图片
 
     private String video; //视频
 
