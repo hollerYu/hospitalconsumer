@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>大家观点</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+</head>
+<body>
+<div class="Sbox">
+    4
+</div>
+</body>
+<script>
+    $(function(){
+        getDetailToHtml()
+    })
+    var id=[[${param.id}]]
+    function getDetailToHtml(){
+        $.ajax({
+            url:"/cspecialist/getDetailById",
+            type:"post",
+            data:{id:id},
+            success:function(result){
+                var html = "";
+                    html += "<div class='list'>"
+                    html += "<div  style='float:left'><h4>" + result.title + "</h4></div><br/><br/>"
+                    html += "<div  style='float:left'>" + result.creatTime + "&nbsp;&nbsp;&nbsp;&nbsp;" + result.look + "人观看" + "</div><br/><br/>"
+                    html += "<div  style='float:left'><h4 style='color:#00bbee'>观点</h4>" + result.viewpoint + " </div><br/><br/><br/>"
+                    html += "<div class='img'><img width='200' height='150'  src=" + result.img + " ></div><br/><br/>"
+                    html += "<div style='float:left;width: 800px' ><h4 style='color:#00bbee'>详情</h4>" + result.details + " </div><br/>"
+                    html += "</div><br/>"
+                $(".Sbox").html(html)
+            },
+            error:function(){
+                alert("出错了!!!!");
+            }
+        })
+    }
+</script>
+</html>
