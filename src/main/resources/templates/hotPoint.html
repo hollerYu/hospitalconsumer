@@ -9,42 +9,33 @@
 <div style="background:#9d9d9d;height: 50px;width: 480px;margin-left: 50px">
     <font size="5px" style="margin-left:160px;margin-top:10px">热点资讯</font>
 </div>
- <div id="divId" style="margin-left: 50px;"></div>
+<div id="divId" style="margin-left: 50px;"></div>
 <script type="application/javascript">
     $(function () {
         queryHotPoint();
     })
-
     function queryHotPoint(){
-
         $.ajax({
-
             url:"/hotPointYjm/queryHotPoint",
             type:"POST",
-
             success:function (result) {
-
                 var html="";
-               for (var i = 0; i < result.length; i++) {
-
-                   html += "<div><img src='"+result[i].photo+"' width=' 480px' heigth='60px'></div>";
-                   html += "<div onclick='toHotPointMore("+result[i].id+")'>"+result[i].titles+"</div>";
-                   html += "<div>"+result[i].times+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                       "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                       "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+result[i].seeCount+"&nbsp;&nbsp;人观看"+"</div>";
-               }
-               $("#divId").html(html);
-
+                for (var i = 0; i < result.length; i++) {
+                    html += "<div><img src='"+result[i].photo+"' width=' 480px' heigth='60px'></div>";
+                    html += "<div onclick='toHotPointMore("+result[i].id+")'>"+result[i].titles+"</div>";
+                    html += "<div>"+result[i].times+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+result[i].seeCount+"&nbsp;&nbsp;人观看"+"</div>";
+                }
+                $("#divId").html(html);
             },
             error:function(){
-
             }
         })
     }
-
     function toHotPointMore(id){
-      //location.href="hotPointYjm/toHotPointMore?content="+content+"&id="+id;
-      location.href="/hotPointYjm/toHotPointMore?id="+id;
+        //location.href="hotPointYjm/toHotPointMore?content="+content+"&id="+id;
+        location.href="/hotPointYjm/toHotPointMore?id="+id;
     }
 </script>
 

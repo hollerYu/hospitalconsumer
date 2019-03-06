@@ -4,17 +4,39 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script th:src="@{~/common/myJs.jsp}"></script>
+    <input type="hidden" name="id" th:value="${id}"/>
 </head>
 <body>
-  <div>
-      <div style="margin-left: 5%;margin-top: 1%"><font size="5px" th:text="${list.titles}"></font></div>
-      <div>
-          <p th:text="${list.times}" ></p>    <p th:text="${list.seeCount}"></p>
-      </div>
-      <div ></div>
-      <div ></div>
+<div class="Sbox">
+    4
+</div>
+<script type="application/javascript">
+    $(function(){
+        getHotPointToHtml()
+    })
+    var id=[[${param.id}]]
+    function getHotPointToHtml(){
+        $.ajax({
+            url : "/hotPointYjm/queryHostPointById",
+            type: "POST",
+            data:{id:id},
+            success:function(result){
+                var html = "";
+                html += "<div class='list'>"
+                html += "<div  align=\"center\"><h2>" + result.titles + "</h2></div><br/><br/>"
+                html += "<div  style='float:left'><h4>" + result.times + "</h4>&nbsp;&nbsp;&nbsp;&nbsp;" + result.seeCount + "人观看" + "</div><br/><br/>"
+                html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result.video+"' type=\"video/mp4\"></video>"
+                html+="<div style=\"width: 99.5%\"><span><h2>"+result.content+"</h2></span></div>"
+                html += "</div><br/>"
+                $(".Sbox").html(html)
+            },
+            error:function(){
+                alert("出错了!!!!");
+            }
+        })
+    }
 
-  </div>
+</script>
 
 </body>
 </html>

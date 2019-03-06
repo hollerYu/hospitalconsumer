@@ -33,8 +33,8 @@ public class HotPointServiceImpl implements HotPointService {
     }
 
     @Override
-    public HotPoint toHotPointMore(Integer id) {
-       return hotPointMapper.toHotPointMore(id);
+    public HotPoint queryHostPointById(Integer id) {
+       return hotPointMapper.queryHostPointById(id);
     }
 
 }

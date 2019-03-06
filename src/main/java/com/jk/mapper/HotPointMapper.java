@@ -1,5 +1,9 @@
 package com.jk.mapper;
 
+import com.jk.bean.HotPoint;
+
+import java.util.List;
+
 /**
  * @Auther: yjm
  * @Date: 2019/3/5 16:20
@@ -15,5 +19,5 @@ public interface HotPointMapper {
 
     void increatCount(Integer id);
 
-    HotPoint toHotPointMore(Integer id);
+    HotPoint queryHostPointById(Integer id);
 }

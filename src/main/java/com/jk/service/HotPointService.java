@@ -17,6 +17,6 @@ public interface HotPointService {
     //增加观看次数
     void increatCount(Integer id);
 
+    HotPoint queryHostPointById(Integer id);
 
-    HotPoint toHotPointMore(Integer id);
 }

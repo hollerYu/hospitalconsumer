@@ -2,7 +2,6 @@ package com.jk.controller;
 
 import com.jk.bean.HotPoint;
 import com.jk.service.HotPointService;
-import com.jk.utils.ResultPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +32,7 @@ public class HotPointController {
     @ResponseBody
     public List queryHotPoint(Integer page, Integer rows){
         List list = hotPointService.queryHotPoint(page, rows);
-       //System.out.println("resultPage"+resultPage);
+        //System.out.println("resultPage"+resultPage);
         return list;
     }
 
@@ -43,15 +42,19 @@ public class HotPointController {
         return "hotPoint";
     }
 
+
     @RequestMapping("toHotPointMore")
     public String toHotPointMore(Integer id, ModelMap modelMap){
         //增加  观看次数
         hotPointService.increatCount(id);
-
-        //根据id 查询具体的内容
-        HotPoint list=hotPointService.toHotPointMore(id);
-        modelMap.addAttribute("list",list);
         return "hotPointMore";
+    }
+
+    @RequestMapping("queryHostPointById")
+    @ResponseBody
+    public HotPoint queryHostPointById(Integer id){
+        HotPoint hotPoint=hotPointService.queryHostPointById(id);
+        return hotPoint;
     }
 
 }
