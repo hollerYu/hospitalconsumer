@@ -44,4 +44,10 @@ public class ConditionController {
         return list;
     }
 
+    //跳转临床文献界面
+    @RequestMapping("tolinchuangwenxian")
+    public String tolinchuangwenxian(){
+        return "tolinchuangwenxian";
+    }
+
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>临床文献</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+
+</head>
+<body>
+    <div class="max">
+        <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;margin-top: 2px;margin-left: 10px;" onclick="location.href='/toCondition'"><h4>返回</h4></div><div align="center"><h2>临床文献</h2></div></div>
+            <div class="min"></div>
+        <!--<div class="min" style="margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey"></div>-->
+    </div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        linchaung();
+        fmtDate()
+    })
+    
+    function linchaung() {
+        $.ajax({
+            url:'/querylinzhuang',
+            type:'post',
+            success:function (result) {
+                function fmtDate(obj){
+                    var date =  new Date(obj);
+                    var y = 1900+date.getYear();
+                    var m = "0"+(date.getMonth()+1);
+                    var d = "0"+date.getDate();
+                    return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
+                }
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    var d=new Date(result[i].sysDate);
+                    var tt =  fmtDate(d)
+                    html += "<div class=\"min\" style=\"margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey\">"
+                    html += "<div id=\"mintitle\"><h3>"+ result[i].maxTitle +"</h3></div>"
+                    html += "<div style=\"margin-top: 10px;width: 100px;float: left\"><b><h4>" + tt + "</h4></b></div>"
+                    html += "<div style='width: 580px;float: left;margin-left: 20px;margin-top: 10px;'><b><h4>共浏览" + result[i].browseNumber + "次</h4></b></div>"
+                    html += "</div>"
+                }
+                $(".min").html(html)
+            }
+        })
+    }
+
+
+
+</script>
+</html>
