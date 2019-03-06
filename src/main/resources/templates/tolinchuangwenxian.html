@@ -4,11 +4,11 @@
     <meta charset="UTF-8"/>
     <title>临床文献</title>
     <script th:src="@{~/common/myJs.jsp}"></script>
-
+    <input type="hidden" name="id" th:value="${id}"/>
 </head>
 <body>
     <div class="max">
-        <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;margin-top: 2px;margin-left: 10px;" onclick="location.href='/toCondition'"><h4>返回</h4></div><div align="center"><h2>临床文献</h2></div></div>
+        <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;margin-top: 2px;margin-left: 10px;" onclick="fanhui()"><h4>返回</h4></div><div align="center"><h2>临床文献</h2></div></div>
             <div class="min"></div>
         <!--<div class="min" style="margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey"></div>-->
     </div>
@@ -47,7 +47,10 @@
         })
     }
 
-
+function fanhui() {
+    var id=$("[name='id']").val();
+    location.href="/toCondition?id="+id;
+}
 
 </script>
 </html>

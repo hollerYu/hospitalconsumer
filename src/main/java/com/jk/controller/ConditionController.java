@@ -34,7 +34,8 @@ public class ConditionController {
     private ConditionService conditionService;
 
     @RequestMapping("toCondition")
-    public String toCondition(){
+    public String toCondition(Integer id,ModelMap modelMap){
+        modelMap.addAttribute("id",id);
         return "/tocondition";
     }
 
@@ -47,7 +48,8 @@ public class ConditionController {
 
     //跳转临床文献界面
     @RequestMapping("tolinchuangwenxian")
-    public String tolinchuangwenxian(){
+    public String tolinchuangwenxian(Integer id,ModelMap modelMap){
+        modelMap.addAttribute("id",id);
         return "tolinchuangwenxian";
     }
 
