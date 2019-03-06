@@ -116,7 +116,6 @@
 
      },
      error:function(){
-        alert("失败了");
      }
     })
    }
@@ -138,7 +137,7 @@
                $(".Sbox2").html(count2);
            },
            error:function(){
-               alert("失败了");
+
            }
        })
    }
@@ -147,10 +146,10 @@
         url:"/headline",
         type:"post",
         success:function(data){
-         alert(data)
+
         },
         error:function(){
-         alert("失败了")
+
         }
       })
    }
