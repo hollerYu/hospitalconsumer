@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class Condition implements Serializable {
 
     private Integer id;
-
+//业务字段----大标题
     private String maxTitle;
 
     private String minTitle;
