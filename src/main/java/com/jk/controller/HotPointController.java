@@ -47,6 +47,7 @@ public class HotPointController {
     public String toHotPointMore(Integer id, ModelMap modelMap){
         //增加  观看次数
         hotPointService.increatCount(id);
+        modelMap.addAttribute("id",id);
         return "hotPointMore";
     }
 

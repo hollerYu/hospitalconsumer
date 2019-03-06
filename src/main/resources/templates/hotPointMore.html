@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script th:src="@{~/common/myJs.jsp}"></script>
-    <input type="hidden" name="id" th:value="${id}"/>
 </head>
 <body>
+
 <div class="Sbox">
-    4
+
 </div>
+
+<font size="4px" style="margin-left: 1%">精选留言&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="margin-left:85%" href="javascript:void(0)" onclick="addComment()">留言</a>/提问</font>
+<div class="comments" style="margin-left: 1%">
+
+
+</div>
+
+
 <script type="application/javascript">
     $(function(){
-        getHotPointToHtml()
+        getHotPointToHtml();
+
+         queryComment();
     })
     var id=[[${param.id}]]
     function getHotPointToHtml(){
@@ -20,13 +30,14 @@
             url : "/hotPointYjm/queryHostPointById",
             type: "POST",
             data:{id:id},
+
             success:function(result){
                 var html = "";
                 html += "<div class='list'>"
                 html += "<div  align=\"center\"><h2>" + result.titles + "</h2></div><br/><br/>"
                 html += "<div  style='float:left'><h4>" + result.times + "</h4>&nbsp;&nbsp;&nbsp;&nbsp;" + result.seeCount + "人观看" + "</div><br/><br/>"
                 html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result.video+"' type=\"video/mp4\"></video>"
-                html+="<div style=\"width: 99.5%\"><span><h2>"+result.content+"</h2></span></div>"
+                html+="<div style=\"width: 99.5%\"><span><h4>"+result.content+"</h4></span></div>"
                 html += "</div><br/>"
                 $(".Sbox").html(html)
             },
@@ -36,7 +47,95 @@
         })
     }
 
-</script>
+    function queryComment(){
+        $.ajax({
+            url:"/commentYjm/queryComment",
+            type:'post',
+            data:{hotPointId:id},
 
+            success:function(result){
+                console.log(result)
+                var tx="";
+                var userIds="";
+                $.each(result,function(index,obj){
+
+                    $(".comments").append("<img src='+obj.yhTx+' style='margin-left: 1%;width: 150px'>");
+                    $(".comments").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                    $(".comments").append("<font size='4px'>"+obj.yhMch+"</font>")
+                    $(".comments").append("<br/><div style='margin-left: 4%'><font size='4px')'>"+obj.userContent+"</font></div><br/>")     //评论内容
+                    if(obj.replyContent !=null){
+                        $(".comments").append("<font style='color: #0d6eb1;margin-left: 4%'>作者&nbsp;&nbsp;回复: &nbsp;&nbsp;&nbsp;</font>")
+                        $(".comments").append("<font color='red'>"+obj.replyContent+"</font><br/>")
+                    }
+                    $(".comments").append("<br/><br/>")
+
+                })
+            },error:function(){
+
+
+            }
+        })
+    }
+    //新增评论
+    // 新增 跳转页面必备
+    var res;
+    function createAddContent(url){
+        $.ajax({
+            url:url,
+            async:false,
+            success:function(data){
+                res = data;
+            }
+        });
+        return res;
+    }
+
+    function addComment() {
+        bootbox.dialog({
+            size: 'big',
+            title: '留言',
+            message: createAddContent('/commentYjm/toCommentAdd?hotPointId='+id),  //跳转新增的弹框
+            closeButton: true,
+            //className:'add-dialog',
+            buttons: {
+                'success': {
+                    "label": "<i class='icon-ok'></i>保存",
+                    "className": "btn-sm btn-success",
+                    "callback": function () {
+                        $.ajax({
+                            url: '/commentYjm/addComment',
+                            type: 'post',
+                            data: $('#addForm').serialize(),
+                            dataType: "json",
+                            success: function (data) {
+                                if (data) {
+                                    layer.msg("添加成功!!!");
+                                    searcher();
+                                }
+                                layer.msg("添加失败!!!")
+                                searcher();
+                            }, error: function () {
+
+                                alert("错误!!!!")
+                            }
+                        })
+                    }
+                },
+                "cancel": {
+                    "label": "<i class='icon-info'></i> 取消",
+                    "className": "btn-sm btn-danger",
+                    "handler": function () {
+                    }
+                }
+            }
+        })
+    }
+    //刷新
+    function searcher(){
+        $('#tableId').bootstrapTable('refresh');
+    }
+
+
+</script>
 </body>
 </html>

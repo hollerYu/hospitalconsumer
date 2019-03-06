@@ -31,7 +31,6 @@ public class User implements Serializable {
 
     private String yhNch;
 
-
     private String yhMm;
 
     private String yhXm;
