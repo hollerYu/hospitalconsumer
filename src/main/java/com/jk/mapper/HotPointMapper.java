@@ -1,9 +1,5 @@
 package com.jk.mapper;
 
-import com.jk.bean.HotPoint;
-
-import java.util.List;
-
 /**
  * @Auther: yjm
  * @Date: 2019/3/5 16:20

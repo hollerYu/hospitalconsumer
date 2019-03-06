@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="hidden" th:value="${specialists1}">
+<center><string><b><font size="6px">美赞臣专家</font></b></string></center>
+<div style="margin-left:300px">
+    <div th:each="sku:${specialists1}" style="display:inline-block;background:pink">
+        <div><img  th:src="@{${sku.dataimg}}" style="height:200px;width:147px"></div>
+        <div th:text="${sku.name}"></div>
+        <div th:text="${sku.address}"></div>
+    </div>
+</div>
+</body>
+</html>
