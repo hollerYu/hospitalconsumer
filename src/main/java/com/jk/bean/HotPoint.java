@@ -1,8 +1,6 @@
 package com.jk.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,6 +20,7 @@ public class HotPoint {
 
     private Integer seeCount; //观看人数
 
+    private Date times; //时间
     @JsonFormat(timezone = "GTM+8",pattern = "yyyy-MM-dd")
     private Date times; //时间
 

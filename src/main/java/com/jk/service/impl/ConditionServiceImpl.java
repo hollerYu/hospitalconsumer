@@ -33,6 +33,6 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Override
     public List queryCondition(Integer id) {
-        return conditionMapper.queryCondition(id);
-    }
+    return conditionMapper.queryCondition(id);
+}
 }
