@@ -13,6 +13,7 @@ package com.jk.controller;
 import com.jk.service.ConditionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -50,4 +51,11 @@ public class ConditionController {
         return "tolinchuangwenxian";
     }
 
+
+    //根据首页id跳转页面
+    @RequestMapping("toLiu")
+    public String toLiu(Integer id, ModelMap modelMap){
+        modelMap.addAttribute("id",id);
+        return "tocondition";
+    }
 }

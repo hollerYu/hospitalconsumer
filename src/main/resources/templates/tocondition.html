@@ -25,7 +25,7 @@
     var id=$("[name='id']").val();
     function condition(id) {
         $.ajax({
-            url:'/queryCondition?id='+1,
+            url:'/queryCondition?id='+id,
             type:'post',
             success:function (result) {
                 var html = "";
