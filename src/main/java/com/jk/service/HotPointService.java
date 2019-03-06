@@ -1,6 +1,8 @@
 package com.jk.service;
 
-import com.jk.utils.ResultPage;
+import com.jk.bean.HotPoint;
+
+import java.util.List;
 
 /**
  * @Auther: yjm
@@ -10,6 +12,11 @@ import com.jk.utils.ResultPage;
 public interface HotPointService {
 
     //热点资讯查询
-    ResultPage queryHotPoint(Integer page, Integer rows);
+    List queryHotPoint(Integer page, Integer rows);
 
+    //增加观看次数
+    void increatCount(Integer id);
+
+
+    HotPoint toHotPointMore(Integer id);
 }

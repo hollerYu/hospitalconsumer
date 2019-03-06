@@ -1,9 +1,7 @@
 package com.jk.mapper;
 
 import com.jk.bean.HotPoint;
-import org.apache.ibatis.annotations.Select;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,8 +11,13 @@ import java.util.List;
  */
 public interface HotPointMapper {
 
-    @Select("select count(*) from y_hotspot")
-    int queryListTotalCount();
+   /* @Select("select count(*) from y_hotspot")
+    int queryListTotalCount();*/
 
-    List<HotPoint> queryHotPoint(HashMap<String, Object> hashMap);
+   // List<HotPoint> queryHotPoint(HashMap<String, Object> hashMap);
+    List queryHotPoint();
+
+    void increatCount(Integer id);
+
+    HotPoint toHotPointMore(Integer id);
 }
