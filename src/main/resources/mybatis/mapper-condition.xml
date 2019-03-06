@@ -3,7 +3,7 @@
 <mapper namespace="com.jk.mapper.ConditionMapper">
 
     <select id="queryCondition" parameterType="Integer" resultType="condition">
-      select * from l_condition where id = #{id}
+    select lc.*, yh.name as maxTitle from l_condition lc ,y_headline yh where lc.id = yh.id and lc.id = #{id}
     </select>
 
 </mapper>
