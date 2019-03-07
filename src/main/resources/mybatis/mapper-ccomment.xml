@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.CCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.bean.CComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="star" property="star" jdbcType="INTEGER" />
+    <result column="specialist_id" property="specialistId" jdbcType="INTEGER" />
+    <result column="live_id" property="liveId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, message, star,specialist_id,live_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from c_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from c_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.bean.CComment" >
+    insert into c_comment (id, user_id, message, 
+      star)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, 
+      #{star,jdbcType=INTEGER})
+  </insert>
+  <select id="getCommentById" parameterType="java.lang.Integer"  resultType="com.jk.bean.CComment">
+        select cu.yh_mch userName,cu.photo photo,cc.message message, cc.star star  from t_mall_user_account cu,c_comment cc where cu.id = cc.user_id and cc.specialist_id=#{specialistId}
+   </select>
+  <select id="getCommentByLiveId" parameterType="java.lang.Integer"  resultType="com.jk.bean.CComment">
+        select cu.yh_mch userName,cu.photo photo,cc.message message from t_mall_user_account cu,c_comment cc where cu.id = cc.user_id and cc.live_id=#{liveId}
+   </select>
+  <insert id="insertSelective" parameterType="com.jk.bean.CComment" >
+    insert into y_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="star != null" >
+        star,
+      </if>
+      <if test="specialistId != null" >
+        specialist_id,
+      </if>
+      <if test="liveId != null" >
+        live_id,
+      </if>
+      <if test="userId != null" >
+        createTime
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="specialistId != null" >
+        #{specialistId,jdbcType=INTEGER},
+      </if>
+      <if test="liveId != null" >
+        #{liveId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        now()
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.bean.CComment" >
+    update c_comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null" >
+        star = #{star,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.bean.CComment" >
+    update c_comment
+    set user_id = #{userId,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      star = #{star,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

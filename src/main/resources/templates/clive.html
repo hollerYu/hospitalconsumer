@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+    <link rel="stylesheet" href="/js/start/css/star-rating.css">
+    <script src="/js/start/js/star-rating.js"></script>
+</head>
+
+<script type="application/javascript">
+
+    var page = 1;
+    var rows = 3;
+    var seeHeight = null;
+    var scrollTop = null
+    var totalHeight = null;
+    $(function () {
+        sss();
+
+    })
+    function sss() {
+        $.ajax({
+            url: '/clive/getLive',
+            async:false,
+            data:{page:page,rows:rows},
+            success: function (result) {
+                console.log(result)
+                var html="";
+                $.each(result,function (index,obj) {
+                    html += "<div class='list' onclick='getDetails(" + obj.id + ")' style='width:100%;height:180px;'>"
+                    if (obj.status==0){
+                        html +="<div  style='width:180px;height:20px;margin-left: 16%'><font color='#f0e68c'>正在直播</font></div>"
+                    }else{
+                        html +="<div  style='width:180px;height:20px;margin-left: 16%'><font color='#ff7f50'>直播回放</font></div>"
+                    }
+                    html += "<div class='img'  style='width:180px;height:150px;margin-left: 16%'><center><img width='400' height='150'  src=" + obj.photo + " ></center></div>"
+                    html += "<div><center><h3>" + obj.title + "</h3></center></div>"
+                    html += "</div><br/><br/><hr>"
+                })
+                html += "<div id='t"+page+"'></div>";
+                $("#Sbox").html(html);
+                seeHeight = $(window).height();//浏览器可视窗口高度
+                /*var thisBodyHeight = $(document.body).height();//浏览器当前窗口文档body的高度
+                var totalBodyHeight = $(document.body).outerHeight(true);//浏览器当前窗口文档body的总高度 包括border padding margin
+                var thisWidth = $(window).width(); //浏览器当前窗口可视区域宽度
+                var thisDocumentWidth = $(document).width();//浏览器当前窗口文档对象宽度
+                var thisBodyWidth = $(document.body).width();//浏览器当前窗口文档body的宽度
+                var totalBodyWidth = $(document.body).outerWidth(true);//浏览器当前窗口文档body的总宽度 包括border padding margin*/
+                scrollTop= $(window).scrollTop();//浏览器可视窗口顶端距离网页顶端的高度（垂直偏移）
+                totalHeight = $(document).height();//整个文档高度
+
+
+            },
+            error: function () {
+                alert("失败");
+            }
+
+        })
+    }
+
+    // console.log(totalHeight,seeHeight,thisBodyHeight,totalBodyHeight,thisWidth,thisDocumentWidth,thisBodyWidth,totalBodyWidth,scrollTop);
+    //添加滚动事件
+    $(window).scroll(function(){
+        scrollTop = $(window).scrollTop();
+        totalHeight = $(document).height();
+        // console.log(scrollTop,seeHeight,totalHeight)
+        if(scrollTop+seeHeight+50>totalHeight){
+            var b = page;
+            page = page+1;
+            $.ajax({
+                url: '/clive/getLive',
+                async:false,
+                data:{page:page,rows:rows},
+                success: function (result) {
+                    var html="";
+                    if(result ==null){
+                        $('#t'+b+'').append(html);
+                    }else {
+                        $.each(result, function (index, obj) {
+                            html += "<div class='list' onclick='getDetails(" + obj.id + ")' style='width:100%;height:180px;'>"
+                            if (obj.status==0){
+                                html +="<div  style='width:180px;height:20px;margin-left: 16%'><font color='#f0e68c'>正在直播</font></div>"
+                            }else{
+                                html +="<div  style='width:180px;height:20px;margin-left: 16%'><font color='#ff7f50'>直播回放</font></div>"
+                            }
+                            html += "<div class='img'  style='width:180px;height:150px;margin-left: 16%'><center><img width='400' height='150'  src=" + obj.photo + " ></center></div>"
+                            html += "<div><center><h3>" + obj.title + "</h3></center></div>"
+                            html += "</div><br/><br/><hr>"
+                        })
+                        $('#t'+b+'').append(html);
+                    }
+
+                },
+                error: function () {
+                    alert("失败");
+                }
+            })
+        }
+
+
+    })
+    function getDetails(id){
+        location.href="/toPage?viewName=liveList&id="+id;
+    }
+
+</script>
+
+<body>
+<div class="container" style="width: 50%;">
+
+    <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;">
+        <div style="float: left;margin-top: 2px;margin-left: 10px;">
+            <h4>
+                <a class="navbar-brand" href="javascript:history.go(-1);">返回</a>
+
+                <!--<a href="/toPage?viewName=index">返回</a>-->
+            </h4>
+        </div>
+        <div align="center">
+            <h2>专家直播</h2>
+        </div>
+    </div>
+    <br/>
+    <div>
+        <center>
+            <button type="button" onclick="window.location.href='/toPage?viewName=cspeciaList'"
+                    class="btn btn-default btn-lg">大咖在线
+            </button>
+            <button type="button" class="btn btn-default btn-lg">大家观点</button>
+            <button type="button" onclick="window.location.href='/toPage?viewName=clive'"
+                    class="btn btn-default btn-lg">大会直播
+            </button>
+        </center>
+
+    </div>
+    <div class="Sbox" id="Sbox">
+
+    </div>
+</div>
+</body>
+
+</html>

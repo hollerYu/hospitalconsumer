@@ -24,4 +24,5 @@ public interface CSpecialistMapper {
     List<CSpecialist> queryCSpecialist();
 
     void updateLookById(Integer id);
+
 }

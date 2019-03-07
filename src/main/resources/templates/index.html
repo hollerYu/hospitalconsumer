@@ -62,7 +62,7 @@
             <string><b><font size="4px"><a href="/hotPointYjm/toHostPoint" onclick="queryHotPoint()">热点咨询</a></font></b></string>
         </div>
         <div>
-            <string><b><font size="4px">专家拙见</font></b></string>
+            <string><b><font size="4px"><a href="/toPage?viewName=cspeciaList" onclick="queryHotPoint()">专家拙见</a></font></a></b></string>
         </div>
         <div>
             <string><b><font size="4px">病例荟萃</font></b></string>
@@ -80,7 +80,7 @@
             <string><b><font size="4px">我的专区</font></b></string>
         </div>
         <div>
-            <string><b><font size="4px">学分课程</font></b></string></string>
+            <string><b><font size="4px">学分课程</b></string></string>
         </div>
         <div>
             <string><b><font size="4px">冲浪闯关</font></b></string>
@@ -97,6 +97,8 @@
         specialist2();
         headline();
     })
+
+
    function specialist(){
     $.ajax({
      url:"/specialist",
@@ -116,6 +118,7 @@
 
      },
      error:function(){
+        alert("失败了");
      }
     })
    }
@@ -137,7 +140,7 @@
                $(".Sbox2").html(count2);
            },
            error:function(){
-
+               alert("失败了");
            }
        })
    }
@@ -149,7 +152,7 @@
 
         },
         error:function(){
-
+            alert("失败了")
         }
       })
    }

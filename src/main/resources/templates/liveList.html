@@ -2,38 +2,32 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>大家观点</title>
+    <title>Title</title>
     <link rel="stylesheet" href="../js/start/css/star-rating.css">
     <script th:src="@{~/common/myJs.jsp}"></script>
     <script src="../js/start/js/star-rating.js"></script>
-
 </head>
 <body>
-<div class="container">
-    <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" >
+<div class="container" style="margin-left: 17%">
+    <div id="top" style="background-color: lightgoldenrodyellow;width: 71%; height: 50px;">
         <div style="float: left;margin-top: 2px;margin-left: 10px;">
             <h4>
                 <a class="navbar-brand" href="javascript:history.go(-1);">返回</a>
                 <!--<a href="/toPage?viewName=cspeciaList">返回</a>--></h4>
         </div>
         <div align="center">
-            <h2>大家观点</h2>
+            <h2 id="big_title"></h2>
         </div>
-    </div><br/>
+    </div>
+    <br/>
     <div class="Sbox">
 
     </div>
 
-    <div>
+    <div style="width: 70%">
         <h3>写留言</h3><br/>
         <div class="form-group">
             <textarea class="form-control" rows="3" id="message" placeholder="我要留言"></textarea>
-        </div>
-        <div>
-            <font color="#00bfff" size="3">送勋章</font>&nbsp;&nbsp;&nbsp;
-            <input id="input-21e" value="0" type="text" class="rating" data-min=0 data-max=5 data-step=1 data-size="xs"
-                   title="">
-            <hr>
         </div>
         <div style="margin-left: 80%">
             <button type="button" onclick="getMessage()" class="btn btn-info">提交留言</button>
@@ -45,28 +39,39 @@
     </div>
 </div>
 </body>
-
 <script>
     $(function () {
-        getDetailToHtml();
+        queryLiveListToHtml();
         getCommentToHtml();
     })
     var id = [[${param.id}]]
-
-    function getDetailToHtml() {
+     // 直播简介
+    var liveExplain = "";
+    var doctorBackground = "";
+    function queryLiveListToHtml() {
         $.ajax({
-            url: "/cspecialist/getDetailById",
+            url: "/clive/getLiveById",
             type: "post",
             data: {id: id},
             success: function (result) {
+
+                if (result.status == 0) {
+                    $("#big_title").html("会议直播");
+                } else {
+                    $("#big_title").html("直播回放");
+                }
                 var html = "";
+                liveExplain = result.liveExplain
+                doctorBackground = result.doctorBackground;
                 html += "<div class='list'>"
                 html += "<div  style='float:left'><h4>" + result.title + "</h4></div><br/><br/>"
-                html += "<div  style='float:left'>" + result.creatTime + "&nbsp;&nbsp;&nbsp;&nbsp;" + result.look + "次观看" + "</div><br/><br/>"
-                html += "<div  style='float:left'><h4 style='color:#00bbee'>观点</h4>" + result.viewpoint + " </div><br/><br/><br/>"
-                html += "<div class='img'><img width='300' height='150'  src=" + result.img + " ></div><br/><br/>"
-                html += "<div style='float:left;width: 800px' ><h4 style='color:#00bbee'>详情</h4>" + result.details + " </div><br/>"
-                html += "</div><br/><br/><br/><br/><br/><br/><br/>"
+                html += "<div  style='float:left'>" + result.name + "&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;" + result.position + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.address + "</div><br/><br/><br/>"
+                html += "<div class='img'><img width='70%' height='380'  src=" + result.photo + " ></div><br/><br/>"
+                html += "<div  style='float:left'>" + "直播时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.liveTime + "</div><br/><br/>"
+                html += "<div id='myButtons2' class='bs-example'><button type='button' onclick='getDoctorBackground()' class='btn btn-primary btn-lg' data-loading-text='Loading...'>讲者介绍</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' onclick='getLiveExplain()' class='btn btn-primary btn-lg'>直播简介</button></div><br/>"
+                html += "<div style='float:left;width: 800px;background: #f7ecb5' id='skt'>" + result.doctorBackground + "</div><br/><br/>"
+                html += "<div style='margin-top: 40px;width: 70%'>直播文字详情:<br/><br/>" + result.liveDetails + " </div><br/><br/><br/>"
+                html += "</div><br/><br/><hr><br/>"
                 $(".Sbox").html(html)
             },
             error: function () {
@@ -74,14 +79,21 @@
             }
         })
     }
+
+    function getDoctorBackground(){
+        $("#skt").html(doctorBackground)
+    }
+    function getLiveExplain(){
+        $("#skt").html(liveExplain)
+    }
     function getMessage(){
         var message = $("#message").val();
         var star = $("#input-21e").val();
         if (message.length>0){
             $.ajax({
-                url: "/cspecialist/addComment",
+                url: "/cspecialist/addCommentNotshowStar",
                 type: "post",
-                data: {message: message,star:star,specialistId:id},
+                data: {message: message,liveId:id},
                 success: function (result) {
                     if (result ==1){
                         layer.alert('留言成功', {icon: 6});
@@ -93,7 +105,7 @@
                     }
                 },
 
-            error: function () {
+                error: function () {
                     alert("出错了!!!!");
                 }
             })
@@ -101,19 +113,17 @@
             layer.msg("请填写留言")
         }
     }
-
     function getCommentToHtml() {
         $.ajax({
-            url: "/cspecialist/getCommentById",
+            url: "/cspecialist/getCommentByLiveId",
             type: "post",
-            data: {specialistId: id},
+            data: {liveId: id},
             success: function (result) {
-                console.log(result);
                 var html="";
                 for (var i = 0; i < result.length; i++) {
                     html+="<div class='list' style='width:100%;height:60px;'>"
                     html+="<div class='img'  style='width:50px;height:50px;float:left'><img width='50' height='50'  src="+result[i].photo+" ></div>"
-                    html+="<div  style='float:left'>&nbsp;&nbsp;"+ result[i].userName +":"+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论"+result[i].star+"个☀"+"</div><br/>"
+                    html+="<div  style='float:left'>&nbsp;&nbsp;"+ result[i].userName +":</div><br/>"
                     html+="<div  style='float:left'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result[i].message + "</div><br/><br/>"
                     html+="</div><br/>"
                 }
@@ -124,5 +134,7 @@
             }
         })
     }
+
 </script>
+
 </html>

@@ -43,6 +43,8 @@ public class User implements Serializable {
 
     private Integer yhJb;  //
 
+    private String photo;
+
     private String rememberPwd;  //记住密码
     //业务字段
     private String to;

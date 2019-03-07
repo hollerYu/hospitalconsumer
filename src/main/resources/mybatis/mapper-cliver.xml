@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.CLiveMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.bean.CLive" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="live_time" property="liveTime" jdbcType="DATE" />
+    <result column="live_explain" property="liveExplain" jdbcType="VARCHAR" />
+    <result column="doctor_background" property="doctorBackground" jdbcType="VARCHAR" />
+    <result column="live_details" property="liveDetails" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, photo, name, position, address, live_time, live_explain ,doctor_background, live_details,status
+  </sql>
+  <sql id="Blob_Column_List" >
+
+  </sql>
+  <select id="getLive" resultType="com.jk.bean.CLive" resultMap="BaseResultMap" parameterType="map">
+    select  <include refid="Base_Column_List" /> from c_live limit #{start},#{end}
+  </select>
+  <select id="getLiveAll" resultType="com.jk.bean.CLive" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" /> from c_live
+  </select>
+  <select id="selectByPrimaryKey" resultType="com.jk.bean.CLive" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from c_live
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from c_live
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.bean.CLive" >
+    insert into c_live (id, title, photo, 
+      name, position, address, 
+      live_time, live_explain, doctor_background, 
+      live_details)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{liveTime,jdbcType=DATE}, #{liveExplain,jdbcType=VARCHAR}, #{doctorBackground,jdbcType=LONGVARCHAR}, 
+      #{liveDetails,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.bean.CLive" >
+    insert into c_live
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="liveTime != null" >
+        live_time,
+      </if>
+      <if test="liveExplain != null" >
+        live_explain,
+      </if>
+      <if test="doctorBackground != null" >
+        doctor_background,
+      </if>
+      <if test="liveDetails != null" >
+        live_details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="liveTime != null" >
+        #{liveTime,jdbcType=DATE},
+      </if>
+      <if test="liveExplain != null" >
+        #{liveExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorBackground != null" >
+        #{doctorBackground,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="liveDetails != null" >
+        #{liveDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.bean.CLive" >
+    update c_live
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="liveTime != null" >
+        live_time = #{liveTime,jdbcType=DATE},
+      </if>
+      <if test="liveExplain != null" >
+        live_explain = #{liveExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorBackground != null" >
+        doctor_background = #{doctorBackground,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="liveDetails != null" >
+        live_details = #{liveDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jk.bean.CLive" >
+    update c_live
+    set title = #{title,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      live_time = #{liveTime,jdbcType=DATE},
+      live_explain = #{liveExplain,jdbcType=VARCHAR},
+      doctor_background = #{doctorBackground,jdbcType=LONGVARCHAR},
+      live_details = #{liveDetails,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.bean.CLive" >
+    update c_live
+    set title = #{title,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      live_time = #{liveTime,jdbcType=DATE},
+      live_explain = #{liveExplain,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
