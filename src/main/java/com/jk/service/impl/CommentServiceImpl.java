@@ -1,4 +1,4 @@
-package com.jk.service.impl.impl;
+package com.jk.service.impl;
 
 import com.jk.bean.Comment;
 import com.jk.mapper.CommentMapper;
