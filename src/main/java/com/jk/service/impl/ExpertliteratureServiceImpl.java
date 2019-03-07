@@ -35,4 +35,14 @@ public class ExpertliteratureServiceImpl implements ExpertliteratureService {
     public List querywenxian(Integer wenxianid) {
         return expertliteratureMapper.querywenxian(wenxianid);
     }
+
+    @Override
+    public void editnumber(Integer wenxianid) {
+        expertliteratureMapper.editnumber(wenxianid);
+    }
+
+    @Override
+    public void liulan(Integer wenxianid) {
+        expertliteratureMapper.liulan(wenxianid);
+    }
 }

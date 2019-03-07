@@ -46,4 +46,14 @@ public class ExpertliteratureController {
         List list = expertliteratureService.querywenxian(wenxianid);
         return list;
     }
+
+    @RequestMapping("editnumber")
+    public String editnumber(Integer id,Integer wenxianid, ModelMap modelMap){
+            expertliteratureService.editnumber(wenxianid);
+            expertliteratureService.liulan(wenxianid);
+        modelMap.addAttribute("wenxianid",wenxianid);
+        modelMap.addAttribute("id",id);
+            return "towenxian";
+    }
+
 }

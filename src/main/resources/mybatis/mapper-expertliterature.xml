@@ -5,5 +5,10 @@
     <select id="querywenxian" parameterType="Integer" resultType="expertliterature">
     select le.*,ll.maxTitle as minTitle from l_expertliterature le ,l_literature ll where le.id = #{wenxianid} and le.id = ll.id
     </select>
-
+    <update id="editnumber" parameterType="Integer" >
+        UPDATE l_literature SET browseNumber = browseNumber + 1 where id = #{id}
+    </update>
+    <update id="liulan" parameterType="Integer" >
+        UPDATE l_expertliterature le SET le.number = le.number + 1 where id = #{wenxianid}
+    </update>
 </mapper>
