@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈刘兴博-登录〉
@@ -38,12 +40,13 @@ public class LoginnController {
 
     @RequestMapping("Login")
     @ResponseBody
-    public String LoginUserByYhMchByYhMm(User user){
+    public String LoginUserByYhMchByYhMm(User user, HttpSession session){
         User user1 = loginService.LoginUserByYhMchByYhMm(user);
+        session.setAttribute("user",user1);
         if (user1 != null){
             return "1";
         }
-        return "0";
+           return "0";
     }
 
 }

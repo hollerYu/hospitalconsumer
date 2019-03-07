@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jk.mapper.CommentMapper">
+
+    <select id="queryComment" resultType="Comment">
+
+        SELECT
+            yc.*, ycr.replyContent replyContent,tmua.yh_tx yhTx,tmua.yh_mch yhMch
+        FROM
+            y_comment yc,
+            t_mall_user_account tmua,
+            y_commentreply ycr
+        WHERE
+             tmua.Id = yc.userId
+        AND yc.userId= ycr.userId
+        AND hotPointId = #{hotPointId} and yc.state=1
+
+    </select>
+
+    <insert id="addComment">
+        insert into y_comment(hotPointId,userId,userContent,state,praseCount,createTime,updateTime)
+            values(#{comment.hotPointId},#{id},#{comment.userContent},0,0,now(),now())
+    </insert>
+
+
+</mapper>

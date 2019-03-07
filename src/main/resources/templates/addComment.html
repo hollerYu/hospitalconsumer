@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>新增评论页面</title>
+</head>
+<style>
+    .row{
+        margin-top:10px;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <form id="addForm" class="form-horizontal">
+        <div class="row">
+            <div class="col-xs-2">评论内容:</div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <input type="hidden" name="hotPointId" th:value="${hotPointId}">
+                    <textarea class="form-control" rows="5" name="userContent"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

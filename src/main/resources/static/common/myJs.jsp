@@ -28,8 +28,8 @@ document.write('<script src="../js/bootstrap-bootbox/bootbox.js"></script>');
 document.write('<script src="../js/uploadify/jquery.uploadify.min.js"></script>');
 document.write('<link rel="stylesheet" href="../js/uploadify/uploadify.css">');
 
-document.write('<script src="../js/layer/layer.js"></script>');
-document.write('<link rel="stylesheet" href="../js/layer/theme/default/layer.css">');
+document.write('<script src="/js/layer/layer.js"></script>');
+document.write('<link rel="stylesheet" href="/js/layer/theme/default/layer.css">');
 
 
 

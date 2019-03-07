@@ -47,7 +47,7 @@ public class SpecialisController {
         Query query = new Query();
         query.addCriteria(Criteria.where("fenlei").is(assort).and("portion").is("1"));
         List<Specialist> specialists = mongoTemplate.find(query, Specialist.class);
-        System.out.println(specialists);
+
         return specialists;
     }
     @ResponseBody
