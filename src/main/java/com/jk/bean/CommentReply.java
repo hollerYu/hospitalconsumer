@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 public class CommentReply {
 
-    private Integer id;   //评论  id
+    private Integer id;   //评论表的id
 
     private Integer userId;   //用户id
 

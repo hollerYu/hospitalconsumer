@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+
+    <style>
+        ul.wrap{
+            width:1200px;
+            margin:0 auto;
+            position:relative; /* 相对定位 */
+        }
+        ul.wrap li{
+            width:400px;
+            float:left;
+            position:absolute; /* 绝对定位 */
+        }
+        ul.wrap li img{
+            /* 计算好长度 */
+            width:364px;
+            border:2px solid #bdbdbd;
+            padding:10px;
+            margin:4px;
+        }
+    </style>
+</head>
+<body>
+<!--显示热点资讯  开始-->
+<!--选手列表，使用js动态加载-->
+<div id="wrapper">
+    <div id="scroller">
+        <div class="newest">
+            <div class="newestPlayers"></div>
+            <img id="newest-loading-gif" class="loading-gif" src="">
+            <div id="newest_scroller-pullUp" class="scroller-pullUp">
+                <span class="pull-up-msg">加载中...</span>
+            </div>
+        </div>
+        <div  class="ranking" style="display: none;">
+            <div class="rankingPlayers"></div>
+            <img id="ranking-loading-gif" class="loading-gif" src="">
+            <div id="ranking_scroller-pullUp" class="scroller-pullUp">
+                <span class="pull-up-msg">加载中...</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--显示热点资讯  结束-->
+
+<script type="application/javascript">
+
+   $(function(){
+       //页面拉到最下方,加载更多评论
+       $(window).scroll(function(){
+           if (isLoading == true) {
+               if (($("body").height() - $("body").scrollTop()) <= document.documentElement.clientHeight) {
+                   $("#loading").show();
+                   messagePage++;
+                   getOnePageMessage(id ,messagePage);
+               }
+           }
+       });
+   })
+
+    function getOnePageMessage(id, page){
+        var onePageMessageTmp;
+        var messagePageCount;
+        isLoading = false;
+        $.ajax({
+            url : "/hotPointYjm/queryHotPoint",
+            type : "get",
+            dataType: "json",
+            data: {
+                wbId: id,
+                messageType: 1,
+                page: page,
+                rows: 10
+            },
+            success : function (data) {
+                console.log("data====>"+data)
+                if (data.code == 0){
+                    messagePageCount = data.result.pageCount;
+                    onePageMessageTmp = data.result.leaveMessages;
+                    if ((onePageMessageTmp.length == 0) || (messagePageCount == 1)) {       // 无数据或只有一页数据，隐藏加载提示
+                        $("#loading").hide();
+                    }
+                    if (onePageMessageTmp.length != 0) {
+                        addMessage(onePageMessageTmp);
+                        isLoading = true;
+                    }
+                }
+                else{
+                    onePageMessageTmp.length = 0;
+                    $("#loading").hide();
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

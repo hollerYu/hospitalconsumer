@@ -24,6 +24,7 @@
 
          queryComment();
     })
+    //  评论表的id
     var id=[[${param.id}]]
     function getHotPointToHtml(){
         $.ajax({
@@ -46,7 +47,7 @@
             }
         })
     }
-
+  //查询评论
     function queryComment(){
         $.ajax({
             url:"/commentYjm/queryComment",
@@ -54,7 +55,7 @@
             data:{hotPointId:id},
 
             success:function(result){
-                console.log(result)
+               // console.log(result)
                 var tx="";
                 var userIds="";
                 $.each(result,function(index,obj){

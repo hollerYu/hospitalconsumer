@@ -55,11 +55,12 @@ public class HotPointController {
     public String toHotPointMore(Integer id, ModelMap modelMap, HttpSession session){
         User user=(User)session.getAttribute("user");
 
-        if(!redisTemplate.hasKey("toHotPointMore"+user.getId())){   //如果不存在   浏览次数就加 1
+        if(!redisTemplate.hasKey("toHotPointMore"+user.getId()) && user.getId()!=null){   //如果不存在   浏览次数就加 1
             //增加  观看次数
             hotPointService.increatCount(id);
             redisTemplate.opsForValue().set("toHotPointMore"+user.getId(),1,40, TimeUnit.SECONDS);
         }
+        //评论表 id
         modelMap.addAttribute("id",id);
         return "hotPointMore";
     }

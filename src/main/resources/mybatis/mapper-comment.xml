@@ -7,16 +7,12 @@
     <select id="queryComment" resultType="Comment">
 
         SELECT
-            yc.*, ycr.replyContent replyContent,tmua.yh_tx yhTx,tmua.yh_mch yhMch
-        FROM
-            y_comment yc,
-            t_mall_user_account tmua,
-            y_commentreply ycr
-        WHERE
-             tmua.Id = yc.userId
-        AND yc.userId= ycr.userId
+			yc.*, ycr.replyContent replyContent,
+			tmua.yh_tx yhTx,
+			tmua.yh_mch yhMch
+		from y_comment yc LEFT JOIN	t_mall_user_account tmua on  yc.userId=tmua.Id
+          LEFT JOIN	y_commentreply ycr on yc.userId=ycr.toReplyId and yc.id=ycr.id
         AND hotPointId = #{hotPointId} and yc.state=1
-
     </select>
 
     <insert id="addComment">
