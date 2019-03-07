@@ -108,12 +108,14 @@
                             data: $('#addForm').serialize(),
                             dataType: "json",
                             success: function (data) {
+
                                 if (data) {
                                     layer.msg("添加成功!!!");
                                     searcher();
+                                }else{
+                                    layer.msg("添加失败!!!")
+                                    searcher();
                                 }
-                                layer.msg("添加失败!!!")
-                                searcher();
                             }, error: function () {
 
                                 alert("错误!!!!")

@@ -1,7 +1,7 @@
 package com.jk.mapper;
 
 import com.jk.bean.Comment;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,5 +16,6 @@ public interface CommentMapper {
     List queryComment(Integer hotPointId);
 
     //新增 用户评论
-    void addComment(@Param("comment") Comment comment,@Param("id") Integer id);
+    void addComment(@Param("comment") Comment comment, @Param("id") Integer id);
+
 }
