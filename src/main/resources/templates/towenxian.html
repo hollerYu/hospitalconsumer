@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+    <input type="hidden" name="wenxianid" th:value="${wenxianid}"/>
+    <input type="hidden" name="id" th:value="${id}"/>
+</head>
+
+<body>
+<div class="max">
+    <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;margin-top: 2px;margin-left: 10px;" onclick="fanhui()"><h4>返回</h4></div><div align="center"><h2>临床文献</h2></div></div>
+    <div class="min"></div>
+    <!--<div class="min" style="margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey"></div>-->
+    <div id="EnterImail" style="margin-left: 339px;position:fixed;bottom: 0px;border-width:0px;width: 1000px;height: 300px;background:inherit;background-color: rgba(242,242,242,1); border: none;border-radius: 0px;box-shadow: none">
+        <div id="u314"  style="border-width: 0px;left: 24px;top: 1068px;width: 105px;height: 37px;font-family:'PingFangSC-Medium', 'PingFang SC Medium', 'PingFang SC';font-weight: 500;font-style: normal;font-size: 26px;color: #333333">
+            <div id="u314_div" style="border-width: 0px;left: 0px; top: 0px; width: 105px;height: 37px;background: inherit;background-color: rgba(255, 255, 255, 0);border: none;border-radius: 0px;box-shadow: none;font-family: 'PingFangSC-Medium', 'PingFang SC Medium', 'PingFang SC';font-weight: 500;font-style: normal;font-size: 26px;"></div>
+            <div style="border-width: 0px;position: absolute;left: 0px;top: 0px;width: 105px;white-space: nowrap;">
+                <p style="margin: 0px;font-kerning: normal">
+                    <span>索要全文</span>
+                </p>
+            </div>
+        </div>
+        <div><input type="text" name="to" style="width: 500px;height: 50px;margin-top: 25px;margin-left: 100px;"/></div>
+        <div style="margin-right: 70px;float: right;"><button style="color: #00ee00" onclick="register()"><h2>提交邮箱</h2></button></div>
+    </div><!--
+        <div id="u135" class="ax_default box_1">
+            <div id="u135_div" class=""></div>
+        </div>-->
+
+</div>
+</body>
+<script type="text/javascript">
+
+
+
+    $(function () {
+        zhuanjiawenxian();
+    })
+
+    function fanhui() {
+        var id=$("[name='id']").val();
+        location.href="/tolinchuangwenxian?id="+id;
+    }
+
+    var wenxianid = $("[name='wenxianid']").val();
+    function zhuanjiawenxian(){
+        $.ajax({
+            url:'/querywenxian?wenxianid='+wenxianid,
+            type:'post',
+            success:function (result) {
+                function fmtDate(obj){
+                    var date =  new Date(obj);
+                    var y = 1900+date.getYear();
+                    var m = "0"+(date.getMonth()+1);
+                    var d = "0"+date.getDate();
+                    return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
+                }
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    var d=new Date(result[i].sysdate);
+                    var tt =  fmtDate(d)
+                    html += "<div class=\"min\" style=\"margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;\">"
+                    html += "<div id=\"mintitle\"><h3>"+ result[i].minTitle +"</h3></div>"
+                    html += "<div style=\"margin-top: 10px;width: 100px;float: left\"><b><h4>" + tt + "</h4></b></div>"
+                    html += "<div style='width: 580px;float: left;margin-left: 20px;margin-top: 10px;'><b><h4>共浏览：" + result[i].number + "次</h4></b></div>"
+                    html += "<div style='width: 1000px;margin-top: 125px;' id='dateils'><h3>"+ result[i].dateils +"</h3></div>"
+                    html += "</div>"
+                }
+                $(".min").html(html)
+            }
+        })
+    }
+
+
+    //发送邮箱
+    function register(){
+        var dateils=$("#dateils").html();
+        var to = $("[name='to']").val();
+       $.ajax({
+            url:"/registertwo",
+            type:"post",
+           data:{title:dateils,
+                to:to
+           },
+            success:function(){
+                alert("发送成功")
+            },
+            error:function () {
+                alert("发送失败")
+            }
+        })
+    }
+
+
+</script>
+</html>

@@ -9,7 +9,7 @@
 <body>
     <div class="max">
         <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;margin-top: 2px;margin-left: 10px;" onclick="fanhui()"><h4>返回</h4></div><div align="center"><h2>临床文献</h2></div></div>
-            <div class="min"></div>
+            <div class="min" ></div>
         <!--<div class="min" style="margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey"></div>-->
     </div>
 </body>
@@ -17,7 +17,6 @@
 
     $(function () {
         linchaung();
-        fmtDate()
     })
     
     function linchaung() {
@@ -34,9 +33,10 @@
                 }
                 var html = "";
                 for (var i = 0; i < result.length; i++) {
+                    var wenxianid = result[i].id;
                     var d=new Date(result[i].sysDate);
                     var tt =  fmtDate(d)
-                    html += "<div class=\"min\" style=\"margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey\">"
+                    html += "<div onclick=\"tozhuanjiawenxian("+wenxianid+")\" class=\"min\" style=\"margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 343px;border: 1px solid red;background-color: darkgrey\">"
                     html += "<div id=\"mintitle\"><h3>"+ result[i].maxTitle +"</h3></div>"
                     html += "<div style=\"margin-top: 10px;width: 100px;float: left\"><b><h4>" + tt + "</h4></b></div>"
                     html += "<div style='width: 580px;float: left;margin-left: 20px;margin-top: 10px;'><b><h4>共浏览" + result[i].browseNumber + "次</h4></b></div>"
@@ -50,6 +50,11 @@
 function fanhui() {
     var id=$("[name='id']").val();
     location.href="/toCondition?id="+id;
+}
+
+function tozhuanjiawenxian(wenxianid) {
+    var id=$("[name='id']").val();
+    location.href="/towenxian?wenxianid="+wenxianid+"&id="+id;
 }
 
 </script>
