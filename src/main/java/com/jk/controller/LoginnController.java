@@ -10,11 +10,14 @@
  */
 package com.jk.controller;
 
+import com.jk.bean.Expertliterature;
 import com.jk.bean.User;
 import com.jk.service.LoginService;
+import com.jk.service.impl.email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -33,6 +36,9 @@ public class LoginnController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private email emailService;
+
     @RequestMapping("tologin")
     public String login(){
         return "login";
@@ -47,6 +53,14 @@ public class LoginnController {
             return "1";
         }
            return "0";
+    }
+
+    //发送邮箱
+    @RequestMapping("registertwo")
+    @ResponseBody
+    public String registertwo(@RequestParam("to") String to, String title){
+        emailService.sendSimple(to,title,title);
+        return "1";
     }
 
 }
