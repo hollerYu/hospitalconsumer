@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -61,6 +62,14 @@ public class LoginnController {
     public String registertwo(@RequestParam("to") String to, String title){
         emailService.sendSimple(to,title,title);
         return "1";
+    }
+
+    //个人专区
+    @RequestMapping("queryoneUser")
+    @ResponseBody
+    public List queryoneUser(Integer userid){
+        List list = loginService.queryoneUser(userid);
+        return list;
     }
 
 }

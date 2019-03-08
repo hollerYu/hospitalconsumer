@@ -1,18 +1,17 @@
 /**
  * Copyright (C), 2015-2019, XXX有限公司
- * FileName: LoginServiceImpl
+ * FileName: SourceServiceImpl
  * Author:   SWORD
- * Date:     2019/3/6 9:50
- * Description:
+ * Date:     2019/3/8 11:13
+ * Description: 个人积分
  * History:
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
 package com.jk.service.impl;
 
-import com.jk.bean.User;
-import com.jk.mapper.LoginMapper;
-import com.jk.service.LoginService;
+import com.jk.mapper.SourceMapper;
+import com.jk.service.SourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,25 +19,25 @@ import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
- * 〈〉
+ * 〈个人积分〉
  *
  * @author SWORD
- * @create 2019/3/6
+ * @create 2019/3/8
  * @since 1.0.0
  */
 @Service
-public class LoginServiceImpl implements LoginService {
+public class SourceServiceImpl implements SourceService {
 
     @Autowired
-    private LoginMapper loginMapper;
+    private SourceMapper sourceMapper;
 
     @Override
-    public User LoginUserByYhMchByYhMm(User user) {
-        return loginMapper.LoginUserByYhMchByYhMm(user);
+    public List querysourceCount(Integer userid) {
+        return sourceMapper.querysourceCount(userid);
     }
 
     @Override
-    public List queryoneUser(Integer userid) {
-        return loginMapper.queryoneUser(userid);
+    public List querysource(Integer userid) {
+        return sourceMapper.querysource(userid);
     }
 }

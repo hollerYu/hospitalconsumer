@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <title>Title</title><script th:src="@{~/common/myJs.jsp}"></script>
+    <input type="hidden" name="userid" th:value="${userid}"/>
+</head>
+<body>
+<div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" ><div style="float: left;margin-top: 2px;margin-left: 10px;" onclick="fanhui()"><h4>返回</h4></div><div align="center"><h2>我的积分</h2></div></div>
+<div id="sourceCount" class="sourceCount" style="margin-left: 500px;">
+    <div style='background-color: #4b72a4;width:1000px;height: 400px;'>
+        <div style="margin-left: 200px;margin-top: 20px;"><h1>当前总积分</h1></div>
+        <div class="sumSource" style="margin-top: 20px;"></div>
+        <div style='width:100px;height: 50px;margin-top: 50px;margin-left: 500px;'><button style='width:100px;height: 50px;margin-top: 50px;background-color: #00ee00'>积分兑换</button></div>
+    </div>
+</div>
+<div class="jifenxiangqing"></div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        init();
+        jifenxiang();
+    })
+
+    function init() {
+        var userid=$("[name='userid']").val();
+        $.ajax({
+            url:'/querysourceCount?userid='+userid,
+            type:'post',
+            success:function (result) {
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    html += "<div style='width:200px;height: 50px;margin-left: 200px;'><h1>"+ result[i].source +"积分</h1></div>"
+                }
+                $(".sumSource").html(html)
+            }
+        })
+    }
+
+    function jifenxiang() {
+        var userid=$("[name='userid']").val();
+        $.ajax({
+            url:'/querysource?userid='+userid,
+            type:'post',
+            success:function (result) {
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    html += "<div class=\"jifenxiangqing\" style=\"margin-top: 50px;left: 24px;width: 704px;height: 100px;margin-left: 500px;border: 1px solid red;background-color: darkgrey\">"
+                    html += "<div id=\"mintitle\"><h3>"+ result[i].sourcename +"</h3></div>"
+                    html += "<div style='width: 580px;float: left;margin-left: 20px;margin-top: 10px;'><b><h4>" + result[i].source + "积分</h4></b></div>"
+                    html += "</div>"
+                }
+                $(".jifenxiangqing").html(html)
+            }
+        })
+    }
+
+
+    function fanhui(){
+        var userid=$("[name='userid']").val();
+        location.href="/jifenfanhui?userid="+userid;
+    }
+
+</script>
+</html>
