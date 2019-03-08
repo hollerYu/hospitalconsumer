@@ -6,10 +6,14 @@
     <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
+<div align="center">
+
 <div style="background:#9d9d9d;height: 50px;width: 480px;margin-left: 50px">
-    <font size="5px" style="margin-left:160px;margin-top:10px">热点资讯</font>
+    <a class="navbar-brand" size="5px" href="javascript:history.go(-1);">返回</a>
+    <font size="6px" >热点资讯</font>
 </div>
- <div id="divId" style="margin-left: 50px;"></div>
+ <div id="divId" style="margin-left: 50px;" ></div>
+</div>
 <script type="application/javascript">
     $(function () {
         queryHotPoint();
@@ -31,7 +35,7 @@
                    html += "<div onclick='toHotPointMore("+result[i].id+")'>"+result[i].titles+"</div>";
                    html += "<div>"+result[i].times+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                       "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+result[i].seeCount+"&nbsp;&nbsp;人观看"+"</div>";
+                       "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+result[i].seeCount+"&nbsp;&nbsp;次浏览"+"</div>";
                }
                $("#divId").html(html);
 

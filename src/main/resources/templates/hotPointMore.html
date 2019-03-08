@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script th:src="@{~/common/myJs.jsp}"></script>
+    <input type="hidden" name="id" th:value="${id}"/>
 </head>
 <body>
-
-<div class="Sbox">
-
-</div>
 
 <font size="4px" style="margin-left: 1%">精选留言&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="margin-left:85%" href="javascript:void(0)" onclick="addComment()">留言</a>/提问</font>
 <div class="comments" style="margin-left: 1%">
 
 
+<div class="container">
+    <div class="Sbox">
+    </div>
 </div>
+
 
 
 <script type="application/javascript">
@@ -34,11 +35,20 @@
 
             success:function(result){
                 var html = "";
+                html+="<div id=\"top\" style=\"background-color: lightgoldenrodyellow;width: 100%; height: 50px;\" >\n" +
+                    "    <div style=\"float: left;margin-top: 2px;margin-left: 10px;\">\n" +
+                    "        <h4>\n" +
+                    "            <a class=\"navbar-brand\" href=\"javascript:history.go(-1);\">返回</a>\n" +
+                    "       </h4>\n" +
+                    "    </div>"
                 html += "<div class='list'>"
                 html += "<div  align=\"center\"><h2>" + result.titles + "</h2></div><br/><br/>"
-                html += "<div  style='float:left'><h4>" + result.times + "</h4>&nbsp;&nbsp;&nbsp;&nbsp;" + result.seeCount + "人观看" + "</div><br/><br/>"
+                html += "<div  style='float:left'><h3>" + result.times + "</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.seeCount + "次浏览" + "</div><br/><br/>"
                 html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result.video+"' type=\"video/mp4\"></video>"
-                html+="<div style=\"width: 99.5%\"><span><h4>"+result.content+"</h4></span></div>"
+                html+="<div style=\"width: 99.5%\"><span><h3>"+result.content+"</h3></span></div>"
+/*
+                html += "<div style='width: 550px;height: 50px;background-color: #F3F3F3;margin-left: 10px'><span><h4>*感谢您的阅读，如您有任何问题，点击文末右侧留言提问按钮，留下您的问题，作者奖尽快回复您.</h4></span></div>"
+*/
                 html += "</div><br/>"
                 $(".Sbox").html(html)
             },
@@ -140,5 +150,6 @@
 
 
 </script>
+
 </body>
 </html>

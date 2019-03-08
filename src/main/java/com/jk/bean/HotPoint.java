@@ -2,6 +2,7 @@ package com.jk.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
