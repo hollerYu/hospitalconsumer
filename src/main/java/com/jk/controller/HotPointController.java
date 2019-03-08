@@ -3,6 +3,7 @@ package com.jk.controller;
 import com.jk.bean.HotPoint;
 import com.jk.bean.User;
 import com.jk.service.HotPointService;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

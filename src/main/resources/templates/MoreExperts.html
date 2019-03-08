@@ -6,7 +6,17 @@
 </head>
 <body>
 <input type="hidden" th:value="${specialists1}">
-<center><string><b><font size="6px">美赞臣专家</font></b></string></center>
+
+
+
+<div id="top" >
+    <div style="float: left;margin-top: 2px;margin-left: 100px;">
+        <h3>
+            <a class="navbar-brand" href="javascript:history.go(-1);">返回</a>
+        </h3>
+    </div>
+    <center><string><b><font size="6px" align="center">美赞臣专家</font></b></string></center>
+
 <div style="margin-left:300px">
     <div th:each="sku:${specialists1}" style="display:inline-block;background:pink">
         <div><img  th:src="@{${sku.dataimg}}" style="height:200px;width:147px"></div>

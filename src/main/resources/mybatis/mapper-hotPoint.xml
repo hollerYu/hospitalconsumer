@@ -5,7 +5,7 @@
     <select id="queryHotPoint" resultType="com.jk.bean.HotPoint" >
      select id,titles,photo,video,seeCount,times,content from y_hotspot
     </select>
-  <!--增加观看次数-->
+    <!--增加观看次数-->
     <update id="increatCount" >
         update y_hotspot set seeCount=seeCount+1 where id=#{id}
     </update>

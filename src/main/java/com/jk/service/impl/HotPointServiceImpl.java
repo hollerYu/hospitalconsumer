@@ -19,6 +19,7 @@ public class HotPointServiceImpl implements HotPointService {
     @Resource
     private HotPointMapper hotPointMapper;
 
+
     //热点资讯查询
     @Override
     public List queryHotPoint(Integer page, Integer rows) {
@@ -34,7 +35,6 @@ public class HotPointServiceImpl implements HotPointService {
 
     @Override
     public HotPoint queryHostPointById(Integer id) {
-       return hotPointMapper.queryHostPointById(id);
+        return hotPointMapper.queryHostPointById(id);
     }
-
 }
