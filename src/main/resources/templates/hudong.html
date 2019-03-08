@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+</head>
+<body>
+<div id="test">
+        查询Redis+1
+</div>
+</body>
+<script>
+    $(function(){
+        jiayi();
+    })
+
+    //查询Redis加一
+    function jiayi(){
+        debugger;
+        $.ajax({
+            url:"/hudong/queryRedis",
+            type:"post",
+            success:function(){
+                var html="";
+                for (var i = 0; i < result.length; i++) {
+                   i++;
+                }
+                $("#test").html(html);
+            },
+            error:function(){
+                alert("出错,请检查代码!!!");
+            }
+        })
+    }
+</script>
+</html>

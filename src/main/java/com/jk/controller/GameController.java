@@ -40,7 +40,7 @@ public class GameController {
     @RequestMapping("addGame")
     @ResponseBody
     public String addGame() {
-        redisTemplate.opsForValue().set("dog", "NO1.我是泰迪犬");
+        redisTemplate.opsForValue().set("wang", "NO1.我是泰迪犬");
         redisTemplate.opsForValue().set("dog1", "NO2.初生的太阳");
         redisTemplate.opsForValue().set("dog2", "NO3.我是no1");
         redisTemplate.opsForValue().set("dog3", "NO4.小小的太阳");
@@ -52,13 +52,13 @@ public class GameController {
     //取值name
   @RequestMapping("addGamess")
     public String addGamess(Model model){
-        String dog = redisTemplate.opsForValue().get("dog");
+        String wang = redisTemplate.opsForValue().get("wang");
         String dog1 = redisTemplate.opsForValue().get("dog1");
         String dog2 = redisTemplate.opsForValue().get("dog2");
         String dog3 = redisTemplate.opsForValue().get("dog3");
         String dog4 = redisTemplate.opsForValue().get("dog4");
         String dog5 = redisTemplate.opsForValue().get("dog5");
-        String aa = dog+","+dog1+","+dog2+","+dog3+","+dog4+","+dog5;
+        String aa = wang+","+dog1+","+dog2+","+dog3+","+dog4+","+dog5;
         model.addAttribute("objects",aa);
       return "game";
     }

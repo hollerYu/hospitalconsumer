@@ -7,15 +7,15 @@
 </head>
 <body>
 <div align="center">
-    <div style="background:#9d9d9d;height: 50px;width: 480px;margin-left: 50px">
+    <div style="background:#9d9d9d;height: 50px;width: 600px;margin-left: 50px">
         <a class="navbar-brand" size="5px" href="javascript:history.go(-1);">返回</a>
         <font size="6px" >冲浪闯关</font>
     </div>
     <div id="divId" style="margin-left: 50px;" ></div>
-</div>
+</div>``
 <div align="center">
-    <div style="background:rgba(152,156,149,0.48);height: 250px;width: 480px;margin-left: 50px">
-        <font size="4px" style="margin-right: 350px">闯关排行榜</font><br/><br/>
+    <div style="background:rgba(152,156,149,0.48);height: 250px;width: 600px;margin-left: 50px">
+        <font size="4px" style="margin-right: 350px;">闯关排行榜</font><br/><br/>
         <input id ="aa" style="margin-right: 350px" type="hidden" th:value="${objects}">
         <input id ="form_aa" style="margin-right: 350px" type="hidden" th:value="${chuang}">
         <div id="test">
@@ -24,20 +24,20 @@
 
         <div  style='background-color:#FFFFFF;width:548px;height:600px'>
             <div style='float:left'>
-               <a href='/home/ToPage?name=diaocha'><img src="//img1.360buyimg.com/da/jfs/t1/19183/14/9507/59499/5c7f8787E2f653b76/e414f598e87f98d8.jpg" height='250' width='222' ></a><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>产品疾病知识</font>
+                &nbsp;<a href='/home/ToPage?name=diaocha'><img src="//img1.360buyimg.com/da/jfs/t1/19183/14/9507/59499/5c7f8787E2f653b76/e414f598e87f98d8.jpg" height='250' width='250' ></a><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>产品疾病知识</font>
             </div>
             <div style='float:left'>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/home/ToPage?name=diaocha'><img src="//img1.360buyimg.com/da/jfs/t1/15619/40/9319/94681/5c7f2a57Eb9976fad/f441a415ae24fce6.jpg" height='250' width='222' ></a><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>问卷调查</font>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/home/ToPage?name=diaocha'><img src="//img1.360buyimg.com/da/jfs/t1/15619/40/9319/94681/5c7f2a57Eb9976fad/f441a415ae24fce6.jpg" height='250' width='250' ></a><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>问卷调查</font>
             </div>
             <div style='float:left'>
-                <a href='/home/ToPage?name=diaocha'><img src="//m.360buyimg.com/babel/jfs/t1/22943/21/9379/100120/5c7df203E88ddaa34/5ed10d3d844434de.jpg" height='250' width='222' ></a><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>互动游戏</font>
+                &nbsp;<a href='/hudong/tohudong'><img src="//m.360buyimg.com/babel/jfs/t1/22943/21/9379/100120/5c7df203E88ddaa34/5ed10d3d844434de.jpg" height='250' width='250' ></a><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>互动游戏</font>
             </div>
             <div style='float:left'>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/home/ToPage?name=diaocha'><img src="//img1.360buyimg.com/pop/jfs/t1/17110/28/5319/81823/5c3bf66eE6f8ab482/6e6770b78fd0d79f.jpg" height='250' width='222' ></a><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>暂无</font>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/home/ToPage?name=diaocha'><img src="//img1.360buyimg.com/pop/jfs/t1/17110/28/5319/81823/5c3bf66eE6f8ab482/6e6770b78fd0d79f.jpg" height='250' width='250' ></a><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5'>暂无</font>
             </div>
 
         </div>
@@ -93,7 +93,7 @@
             success:function (result) {
                 var html="";
                 for (var i = 0; i < result.length; i++) {
-                    html += "<div><img src='"+result[i].photo+"'  height='140' width='480'></div>";
+                    html += "<div><img src='"+result[i].photo+"'  height='140' width='600'></div>";
                 }
                 $("#divId").html(html);
             },
