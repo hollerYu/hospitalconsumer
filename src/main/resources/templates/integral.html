@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+    <input type="hidden" id="ids" th:value="${ids}">
+    <!--答对的题-->
+    <input type="hidden" id="str" th:value="${str}">
+         <center><font size="5px"><strong>用户名</strong>：<span id="sp">未登录</span></font></center>
+    <center><font size="5px"><strong>恭喜你答对</strong>：<span id="sp2"></span>道题，共获积分<span id="sp3"></span>分</font></center>
+<div id="one">
+
+</div>
+
+</body>
+    <script>
+     $(function(){
+         var arr = $("#ids").val();
+         var replace = arr.replace(","," ");
+         var ids = new Array();
+         ids+= ids+= replace;
+         selectintergrn(ids);
+         user();
+     })
+     //查询错题
+     function selectintergrn(ids){
+       console.log(ids);
+        $.ajax({
+         url:"/queryerror",
+         type:"post",
+         data:{str:ids},
+         success:function(data){
+           var count = "";
+           alert(data);
+           for(var i=0;i<data.length;i++) {
+               count += "<strong>"+data[i].title+"</strong>"+"<br/>";
+               count += "&nbsp;&nbsp;"+data[i].one+"<br/>";
+               count += "&nbsp;&nbsp;"+data[i].two+"<br/>";
+               count += "&nbsp;&nbsp;"+data[i].three+"<br/>";
+               count += "&nbsp;&nbsp;"+data[i].five+"<br/>";
+               count += data[i].parse+"<br/>";
+           }
+           $("#one").html(count);
+         },
+         error:function(){
+           alert("失败了");
+         }
+        })
+     }
+     //查询用户
+     function user(){
+       $.ajax({
+         url:"/userbb",
+         type:"post",
+         success:function(data){
+          $("#sp").html(data.yhMch);
+          var result = $("#str").val();
+          var list = new Array();
+          list+=list+=result;
+          alert(list);
+          $("#sp2").html(list.length);
+          var number = parseInt(result);
+          var aa = number*2;
+          console.log("---"+aa);
+          $("#sp3").html(aa);
+         },
+         error:function(){
+          alert("失败了");
+         }
+       })
+     }
+
+
+
+    </script>
+</html>

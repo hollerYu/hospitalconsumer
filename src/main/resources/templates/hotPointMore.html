@@ -22,10 +22,9 @@
 <script type="application/javascript">
     $(function(){
         getHotPointToHtml();
-
          queryComment();
     })
-    //  评论表的id
+
     var id=[[${param.id}]]
     function getHotPointToHtml(){
         $.ajax({
@@ -65,7 +64,7 @@
             data:{hotPointId:id},
 
             success:function(result){
-               // console.log(result)
+                console.log(result)
                 var tx="";
                 var userIds="";
                 $.each(result,function(index,obj){

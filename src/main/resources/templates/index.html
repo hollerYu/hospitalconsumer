@@ -80,10 +80,10 @@
             <string><b><font size="4px"><a href="/toSpecialHtml">我的专区</a></font></b></string>
         </div>
         <div>
-            <string><b><font size="4px">学分课程</b></string></string>
+            <string><b><font size="4px">学分课程</font></b></string></string>
         </div>
         <div>
-            <string><b><font size="4px"><a href="/game/addGamess" onclick="queryGame()">冲浪闯关</a></font></b></string>
+            <string><b><font size="4px"><a href="/game/addGamess">冲浪闯关</a></font></b></string>
         </div>
         <div>
             <string><b><font size="4px">专属客服</font></b></string>
@@ -97,8 +97,6 @@
         specialist2();
         headline();
     })
-
-
    function specialist(){
     $.ajax({
      url:"/specialist",
@@ -152,7 +150,7 @@
 
         },
         error:function(){
-            alert("失败了")
+
         }
       })
    }

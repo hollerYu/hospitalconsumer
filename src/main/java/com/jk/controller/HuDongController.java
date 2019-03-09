@@ -4,6 +4,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
@@ -22,11 +23,11 @@ public class HuDongController {
     }
 
     //Redis查询次数加一
+    @ResponseBody
     @RequestMapping("queryRedis")
-    public String queryRedis(ModelMap modelMap){
+    public void queryRedis(ModelMap modelMap){
         Integer a = redisTemplate.opsForValue().get("a");
         a++;
         redisTemplate.opsForValue().set("a",a);
-        return "hudong";
     }
 }

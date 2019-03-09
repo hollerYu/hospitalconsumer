@@ -1,10 +1,13 @@
 package com.jk.controller;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jk.bean.Headline;
 import com.jk.bean.Specialist;
 import com.jk.service.SpecialisService;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,7 +31,6 @@ public class SpecialisController {
    @RequestMapping("index")
    public String index(){
 
-
        return "index";
    }
    //查询专家
@@ -50,18 +52,18 @@ public class SpecialisController {
 
         return specialists;
     }
-    @ResponseBody
+/*    @ResponseBody
     @RequestMapping("add")
     public String add(){
         Specialist specialist = new Specialist();
-        specialist.setName("Ms刘");
+        specialist.setName("张一山");
         specialist.setAddress("东北大学医学院");
-        specialist.setDataimg("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2037848741,3402860477&fm=26&gp=0.jpg");
-        specialist.setFenlei(2);
+        specialist.setDataimg("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1681705484,1994333013&fm=26&gp=0.jpg");
+        specialist.setFenlei(1);
         specialist.setPortion("2");
         mongoTemplate.insert(specialist);
         return "success";
-    }
+    }*/
     //查询标题
     @ResponseBody
     @RequestMapping("headline")
@@ -85,9 +87,6 @@ public class SpecialisController {
         model.addAttribute("specialists1",specialists);
         return "MoreExperts";
     }
-
-
-
 
 
 

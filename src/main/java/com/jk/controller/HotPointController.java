@@ -65,6 +65,7 @@ public class HotPointController {
         }
         //评论表 id
         modelMap.addAttribute("id",id);
+
         return "hotPointMore";
     }
 
