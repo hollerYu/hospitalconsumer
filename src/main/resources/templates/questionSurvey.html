@@ -71,10 +71,12 @@
                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerThree + "' style='float: left'><div>" + obj.answerThree + "</div><br/>";
                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerFour + "' style='float: left'><div>" + obj.answerFour + "</div><br/>";
                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerFive + "' style='float: left'><div>" + obj.answerFive + "</div><br/>";
-
-                        arr += "<input type='button' class='btn btn-default' value='提交答问卷' onclick='addSurveyYjm(\"" + questionOne + "\")'>"
-
+                     if(obj.answerSix!=null){
+                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerSix + "' style='float: left'><div>" + obj.answerSix + "</div><br/>";
+                         arr += "<input type='button' class='btn btn-default' value='提交答问卷' onclick='addSurveyYjm(\"" + questionOne + "\")'>"
+                     }
                     }
+
                     arr += "</div>";
                 })
                 $("#tableId").html(arr)

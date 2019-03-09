@@ -36,6 +36,8 @@ public class QuestSurvey {
 
     private String answerFive;   //答案  5
 
+    private String answerSix;   //答案  6
+
     private String state;   //表示答案的  值
 
 

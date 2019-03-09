@@ -75,7 +75,7 @@ public class SurveyController {
 
         // 根据用户id查询 用户是否 已经 提交过问卷 了
         List<AnswerSurvey> answerSurvey= surveyService.selectSyrveyByUserId(user.getId());
-        if(answerSurvey.size()<=0){
+        if(answerSurvey.size()>0){
             return "-1";   //已经评论过
         }else {
             // 提交 问卷
