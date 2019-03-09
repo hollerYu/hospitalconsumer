@@ -52,7 +52,7 @@ public class SurveyController {
 
    /* @RequestMapping("add")
     public String add() {
-
+    /surveyYjm/toQuestionSurvey
         QuestSurvey questSurvey = new QuestSurvey();
 
         questSurvey.setQuestionOne("你所在的医疗机构?");
