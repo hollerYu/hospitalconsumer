@@ -24,15 +24,25 @@ public class QuestSurvey {
     @Id
     private String id; // 对应 选项表  的(questId)  字段
 
-    private String questSurveyTitle;    //标题
+    private String questionOne;    //问题 1序号
 
-    private String questionNum;    //问题 序号
+    private String answerOne;   //答案  1
 
-    private List questvalue;   //问题  题目
+    private String answerTwo;   //答案  2
 
-    private List answerNum;    //选项  的  序号  例如  "  A B C D "
+    private String answerThree;   //答案  3
 
-    private List answerValue;   //对应问题的选项  内容
+    private String answerFour;   //答案  4
+
+    private String answerFive;   //答案  5
+
+    private String state;   //表示答案的  值
+
+
+
+
+
+
 
 
 

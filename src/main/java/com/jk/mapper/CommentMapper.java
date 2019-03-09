@@ -18,4 +18,7 @@ public interface CommentMapper {
     //新增 用户评论
     void addComment(@Param("comment") Comment comment, @Param("id") Integer id);
 
+    //添加积分
+    void addCountByUseId(Integer userId);
+
 }

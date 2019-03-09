@@ -4,82 +4,122 @@
     <meta charset="UTF-8">
     <title>问卷调查表</title>
     <script th:src="@{~/common/myJs.jsp}"></script>
+    <style>
+
+
+    </style>
 </head>
 <body>
-<table id="tableId" class="table "> </table>
-<!--  <table class="table">
-      <tr th:each="item:${questSurvey}" th:id="${questSurvey.id}">
-      <caption><span th:text="${item.questSurveyTitle}"></span></caption>
-      <thead>
-      <tr>
-          <th>产品</th>
-          <th>付款日期</th>
-          <th>状态</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="active">
-          <td>产品1</td>
-          <td>23/11/2013</td>
-          <td>待发货</td>
-      </tr>
-      <tr class="success">
-          <td>产品2</td>
-          <td>10/11/2013</td>
-          <td>发货中</td>
-      </tr>
-      <tr  class="warning">
-          <td>产品3</td>
-          <td>20/10/2013</td>
-          <td>待确认</td>
-      </tr>
-      <tr  class="danger">
-          <td>产品4</td>
-          <td>20/10/2013</td>
-          <td>已退货</td>
-      </tr>
-      </tbody>
-      </tr>  url:"/surveyYjm/querySurvey",
-  </table>-->
+<table id="tableId" class="table table-condensed" style="margin-left: 2%;margin-top: 1%"></table>
+<!-- <form style="margin-left: 5%;width: 60%">
+    <table class="table table-responsive" style="margin-left: 2% ;padding: 14px;" >
 
+        <thead th:each="entries,stat:${list}" class="active">
+            &lt;!&ndash;<td th:text="${stat.count}"></td>&ndash;&gt;
+            <div th:if=" ${stat.count} eq'1'">
+                <td th:text="${entries.questSurveyTitle}"></td>
+            </div>
 
-<script type="application/javascript">
-    $(function(){
+         <tr>
+                <td style="width:10px; height:10px;">
+                   <div class="row" style="margin-left: 5%">
+                  &lt;!&ndash;<p th:text="${stat.count}"></p>&ndash;&gt;
+                         <div style="float: left" th:text="${entries.questionNum}"></div>
+                        <p style="float: left" th:text="${entries.questValue}" name="questValue"></p>
+
+                   </div>
+                </td>
+         </tr>
+            <tr>
+                <td th:each="item:${entries.answerValue}" style="width:10px; height:10px;margin-left: 8%">
+                     <input style="float: left" type="checkbox" name="answerResult" th:value="${item}"> <div style="float: left" th:text="${item}"></div>
+                </td>
+
+            </tr>
+        </thead>
+    </table>
+    <input type="button" onclick="addSurveyYjm()" class="btn btn-group-sm" value="提交答问卷" style="margin-left: 48%">
+ </form>-->
+
+<script th:inline="javascript">
+    $(function () {
 
         initDategrid();
     })
-    function initDategrid(){
+
+
+    function initDategrid() {
         $.ajax({
-            url:"/surveyYjm/querySurvey",
-            type:'post',
+            url: "/surveyYjm/querySurvey",
+            type: 'post',
 
-            success:function(result){
-                console.log(result)
-                var arr="";
-                for(var i=0;i<result.length;i++){
+            success: function (result) {
+                // console.log(result)
+                var arr = "";
+                var questionOne = "";
+                var questId = "";
+                $.each(result, function (index, obj) {
 
-                    arr += "<font size='5px' color='#dc143c'>"+result[i].questSurveyTitle+"</font>";
+                    arr += "<font size='4px' name='questionOne'>" + obj.questionOne + "</font><br/>";
+                    questId += "," + obj.id;
+                    questionOne += "," + obj.questionOne;
+                    arr += "<div style='margin-left: 3%'>";
+                    arr += "<input type='checkbox' name='aaId' value='" + obj.answerOne + "' style='float: left'><div style='float: left'>" + obj.answerOne + "</div><br/><br/>";
+                    arr += "<input type='checkbox' name='aaId' value='" + obj.answerTwo + "' style='float: left'><div>" + obj.answerTwo + "</div><br/>";
 
-                     arr += "<tr>";
-                        arr += "<td><font size='4px' color='#dc143c'>"+result[i].questionNum+"</font></td>";
-                     arr += "</tr>";
+                    if (obj.answerThree != null) {
+                        arr += "<input type='checkbox' name='aaId' value='" + obj.answerThree + "' style='float: left'><div>" + obj.answerThree + "</div><br/>";
+                        arr += "<input type='checkbox' name='aaId' value='" + obj.answerFour + "' style='float: left'><div>" + obj.answerFour + "</div><br/>";
+                        arr += "<input type='checkbox' name='aaId' value='" + obj.answerFive + "' style='float: left'><div>" + obj.answerFive + "</div><br/>";
 
+                        arr += "<input type='button' class='btn btn-default' value='提交答问卷' onclick='addSurveyYjm(\"" + questionOne + "\")'>"
 
-
-
-                }
+                    }
+                    arr += "</div>";
+                })
                 $("#tableId").html(arr)
-
             },
-            error:function(){
-
+            error: function () {
             }
-
         })
+    }
+       var user=[[${session.user}]]
+
+    function addSurveyYjm(questionOne) {
+        if (user==null) {
+            layer.msg("请登录")
+            location.href = "/tologin";
+        } else {
+            var arr = "";
+            $("input[name='aaId']:checked").each(function (i) {
+                arr += "," + $("input[name='aaId']:checked").eq(i).val();
+            });
+            var quest = questionOne.substr(1);     //问题
+            var asd = arr.substr(1);  //选中项
+
+            $.ajax({
+                url: '/surveyYjm/addSurveyYjm',
+                data: {
+                    questionOne: quest,   //问题
+                    answerValue: asd    //答案  勾选项
+                },
+                success: function (result) {
+                    if(result ==-1){
+                        layer.msg("您已经 填写过 此 问卷!!!!");
+                    }
+                    if(result==1){
+
+                        layer.msg("感谢您的参与，您将获得200积分，积分可兑换礼品");
+                    }
+
+                }, error: function () {
+                }
+            })
+        }
     }
 
     //条查
-    function searcher(){
+    function searcher() {
 
         $('#tableId').bootstrapTable('refresh');
     }

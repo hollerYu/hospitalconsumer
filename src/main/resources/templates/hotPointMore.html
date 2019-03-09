@@ -9,7 +9,7 @@
 <body>
 
 <font size="4px" style="margin-left: 1%">精选留言&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="margin-left:85%" href="javascript:void(0)" onclick="addComment()">留言</a>/提问</font>
-<div class="comments" style="margin-left: 1%">
+<div class="comments" style="margin-left: 1%" >
 
 
 <div class="container">
@@ -24,7 +24,7 @@
         getHotPointToHtml();
          queryComment();
     })
-
+    //  评论表的id
     var id=[[${param.id}]]
     function getHotPointToHtml(){
         $.ajax({
@@ -45,9 +45,7 @@
                 html += "<div  style='float:left'><h3>" + result.times + "</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + result.seeCount + "次浏览" + "</div><br/><br/>"
                 html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result.video+"' type=\"video/mp4\"></video>"
                 html+="<div style=\"width: 99.5%\"><span><h3>"+result.content+"</h3></span></div>"
-/*
-                html += "<div style='width: 550px;height: 50px;background-color: #F3F3F3;margin-left: 10px'><span><h4>*感谢您的阅读，如您有任何问题，点击文末右侧留言提问按钮，留下您的问题，作者奖尽快回复您.</h4></span></div>"
-*/
+
                 html += "</div><br/>"
                 $(".Sbox").html(html)
             },
@@ -64,22 +62,28 @@
             data:{hotPointId:id},
 
             success:function(result){
-                console.log(result)
+               // console.log(result)
                 var tx="";
                 var userIds="";
-                $.each(result,function(index,obj){
-
-                    $(".comments").append("<img src='+obj.yhTx+' style='margin-left: 1%;width: 150px'>");
-                    $(".comments").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-                    $(".comments").append("<font size='4px'>"+obj.yhMch+"</font>")
-                    $(".comments").append("<br/><div style='margin-left: 4%'><font size='4px')'>"+obj.userContent+"</font></div><br/>")     //评论内容
-                    if(obj.replyContent !=null){
-                        $(".comments").append("<font style='color: #0d6eb1;margin-left: 4%'>作者&nbsp;&nbsp;回复: &nbsp;&nbsp;&nbsp;</font>")
-                        $(".comments").append("<font color='red'>"+obj.replyContent+"</font><br/>")
-                    }
-                    $(".comments").append("<br/><br/>")
-
-                })
+               if(result.length==0){
+                   $(".comments").append("<br/><br/>")
+                   $(".comments").append("&nbsp;&nbsp;&nbsp;暂无评论,等你来强占第一把交椅!!!")
+                   $(".comments").append("<br/><br/>")
+               }else{
+                   $.each(result,function(index,obj){
+                       $(".comments").append("<div style=\"background-color: #9C9C9C;">")
+                        $(".comments").append("<img src='+obj.yhTx+' style='margin-left: 1%;width: 150px'>");
+                        $(".comments").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                        $(".comments").append("<font size='4px'>"+obj.yhMch+"</font>")
+                        $(".comments").append("<br/><div style='margin-left: 4%'><font size='4px')'>"+obj.userContent+"</font></div><br/>")     //评论内容
+                       $(".comments").append("</div>")
+                       if(obj.replyContent !=null){
+                           $(".comments").append("<font style='color: #0d6eb1;margin-left: 4%'>作者&nbsp;&nbsp;回复: &nbsp;&nbsp;&nbsp;</font>")
+                           $(".comments").append("<font color='red'>"+obj.replyContent+"</font><br/>")
+                       }
+                       $(".comments").append("<br/><br/>")
+                   })
+               }
             },error:function(){
 
 
@@ -149,6 +153,5 @@
 
 
 </script>
-
 </body>
 </html>
