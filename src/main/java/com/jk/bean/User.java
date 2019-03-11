@@ -49,4 +49,6 @@ public class User implements Serializable {
     //业务字段
     private String to;
 
+    private Integer sumsource;  //积分
+
 }

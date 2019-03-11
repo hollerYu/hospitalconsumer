@@ -1,6 +1,7 @@
 package com.jk.mapper;
 
 import com.jk.bean.HotPoint;
+
 import java.util.List;
 
 /**

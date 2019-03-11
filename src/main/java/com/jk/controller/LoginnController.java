@@ -14,6 +14,7 @@ import com.jk.bean.Expertliterature;
 import com.jk.bean.User;
 import com.jk.service.LoginService;
 import com.jk.service.impl.email;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,9 @@ public class LoginnController {
     public String login(){
         return "login";
     }
+
+
+
 
     @RequestMapping("Login")
     @ResponseBody

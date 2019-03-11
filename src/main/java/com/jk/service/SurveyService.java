@@ -1,5 +1,6 @@
 package com.jk.service;
 
+import com.jk.bean.AnswerSurvey;
 import com.jk.bean.QuestSurvey;
 
 import java.util.List;
@@ -11,4 +12,8 @@ import java.util.List;
  */
 public interface SurveyService {
     List<QuestSurvey> querySurvey();
+
+    void addSurveyYjm(Integer userId, String questionOne, String answerValue);
+
+    List<AnswerSurvey> selectSyrveyByUserId(Integer userId);
 }

@@ -35,7 +35,7 @@
         select cu.yh_mch userName,cu.photo photo,cc.message message from t_mall_user_account cu,c_comment cc where cu.id = cc.user_id and cc.live_id=#{liveId}
    </select>
   <insert id="insertSelective" parameterType="com.jk.bean.CComment" >
-    insert into y_comment
+    insert into c_comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,

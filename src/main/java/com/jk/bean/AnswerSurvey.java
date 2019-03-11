@@ -11,22 +11,19 @@ import lombok.NoArgsConstructor;
 /**
  * @Auther: yjm
  * @Date: 2019/3/7 16:29
- * @Description:
+ * @Description:     积分表
  */
 @Data
 @Document(collection="AnswerSurvey")
-@AllArgsConstructor
-@NoArgsConstructor
 public class AnswerSurvey {
 
-    @Id
     private String id;
 
-    private String questId;   //问题  id
+    private Integer userId;   //
 
-    private String answerNum;    //选项  的  序号  例如  "  A B C D "
+    private String questionOne;    //   调查对象  的  问题
 
-    private String  answerValue;   //对应问题的选项  内容
+    private String answerValue;    //问题   字段   关联  提问 的问题表
 
 
 }

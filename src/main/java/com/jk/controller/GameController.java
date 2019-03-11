@@ -36,22 +36,18 @@ public class GameController {
         return gameService.queryGame();
     }
 
-    //赋值name
-    @RequestMapping("addGame")
-    @ResponseBody
-    public String addGame() {
-        redisTemplate.opsForValue().set("wang", "NO1.我是泰迪犬");
-        redisTemplate.opsForValue().set("dog1", "NO2.初生的太阳");
-        redisTemplate.opsForValue().set("dog2", "NO3.我是no1");
-        redisTemplate.opsForValue().set("dog3", "NO4.小小的太阳");
-        redisTemplate.opsForValue().set("dog4", "NO5.apply派");
-        redisTemplate.opsForValue().set("dog5", "NO6.太阳当空照");
-        return "success";
-    }
 
     //取值name
   @RequestMapping("addGamess")
     public String addGamess(Model model){
+        if(!redisTemplate.hasKey("wang")){
+            redisTemplate.opsForValue().set("wang", "NO1.我是泰迪犬");
+            redisTemplate.opsForValue().set("dog1", "NO2.初生的太阳");
+            redisTemplate.opsForValue().set("dog2", "NO3.我是no1");
+            redisTemplate.opsForValue().set("dog3", "NO4.小小的太阳");
+            redisTemplate.opsForValue().set("dog4", "NO5.apply派");
+            redisTemplate.opsForValue().set("dog5", "NO6.太阳当空照");
+        }
         String wang = redisTemplate.opsForValue().get("wang");
         String dog1 = redisTemplate.opsForValue().get("dog1");
         String dog2 = redisTemplate.opsForValue().get("dog2");

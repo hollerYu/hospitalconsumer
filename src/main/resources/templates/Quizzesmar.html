@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+</head>
+<body>
+<center><strong><font size="7px">闯关测试</font></strong></center>
+<form id="form_aa">
+    <div id="aa"></div>
+</form>
+
+<div id="bb" style="margin-left:400px;margin-right:400px"></div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        quizzesmar();
+        hits();
+    })
+    //点击加浏览次数
+    function hits(){
+      $.ajax({
+        url:"/hudong/queryRedis",
+        type:"post",
+        success:function(data){
+        },
+        error:function(){
+          alert("失败了");
+        }
+      })
+    }
+    function quizzesmar() {
+        $.ajax({
+            url: "/quizzesmarselect",
+            type: "post",
+            success: function (data) {
+                var count = "";
+                for (var i = 0; i < data.length; i++) {
+                    count += "<div>";
+                    count += "<strong aria-setsize='10px'>";
+                    count += data[i].title + "<br/>";
+                    count += "&nbsp;&nbsp;" + "<input type='checkbox' value='1'  name='ab'>" + data[i].one+"<br/>";
+                    count += "&nbsp;&nbsp;" + "<input type='checkbox' value='2'  name='ab'>" + data[i].two+"<br/>";
+                    count += "&nbsp;&nbsp;" + "<input type='checkbox' value='3'  name='ab'>" + data[i].three+"<br/>";
+                    count += "&nbsp;&nbsp;" + "<input type='checkbox' value='4'  name='ab'>" + data[i].five +"<br/>";
+                    count += "</h>";
+                    count += "</strong>";
+                    count += "</div>";
+                }
+                $("#aa").html(count);
+                var count2 = "";
+                count2 += "<button type=\"button\" class=\"btn btn-block\" onclick='hine()'>提交测试</button>";
+                $("#bb").html(count2);
+            },
+            error: function () {
+                alert("失败了");
+            }
+        })
+    }
+
+    //点击测试
+    function hine() {
+        $.ajax({
+            url: "/quizzesmarselect",
+            type: "post",
+            success: function (data) {
+                var jstr = $("#form_aa").serialize();
+                var a = jstr.substr(3);
+                var strings = a.split("&ab=");
+                //alert(strings);
+                if(strings.length==data.length){
+                  $.ajax({
+                    url:"/contrast",
+                    type:"post",
+                    Async:true,
+                    success:function(data){
+                     var list = new Array();
+                      if(data[0]==strings[0]){
+                         list.push(data[0])
+                      }
+                      if(data[1]==strings[1]){
+                        list.push(data[1])
+                      }
+                      if(data[2]==strings[2]){
+                         list.push(data[2])
+                      }
+                      if(data[3]==strings[3]){
+                        list.push(data[3])
+                      }
+                        //alert(list);
+                        var counttwo="";
+                        for(var i=0;i<list.length;i++){
+                            counttwo+=","+list[i];
+                        }
+                        var s = counttwo.substr(1);
+                      $.ajax({
+                        url:"/comparison",
+                        type:"post",
+                        data:{lists:s},
+                        success:function(data){
+                            var ids2 = "";
+                            for(var i=0;i<data.length;i++){
+                                ids2+=","+data[i].id;
+                            }
+                            location.href="/Inthejump?ids="+ids2+"&str="+s;
+                        },
+                        error:function(){
+                          alert("失败了");
+                        }
+                      })
+                    },
+                    error:function(){
+                     alert("失败了");
+                    }
+                  })
+                }else{
+                  alert("您还有题没答完，亲")
+                }
+            },
+            error: function () {
+                alert("失败了");
+            }
+        })
+    }
+
+</script>
+</html>
