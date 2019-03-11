@@ -22,6 +22,7 @@
 <script type="application/javascript">
     $(function(){
         getHotPointToHtml();
+
          queryComment();
     })
     //  评论表的id
@@ -65,25 +66,19 @@
                // console.log(result)
                 var tx="";
                 var userIds="";
-               if(result.length==0){
-                   $(".comments").append("<br/><br/>")
-                   $(".comments").append("&nbsp;&nbsp;&nbsp;暂无评论,等你来强占第一把交椅!!!")
-                   $(".comments").append("<br/><br/>")
-               }else{
-                   $.each(result,function(index,obj){
-                       $(".comments").append("<div style=\"background-color: #9C9C9C;">")
-                        $(".comments").append("<img src='+obj.yhTx+' style='margin-left: 1%;width: 150px'>");
-                        $(".comments").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-                        $(".comments").append("<font size='4px'>"+obj.yhMch+"</font>")
-                        $(".comments").append("<br/><div style='margin-left: 4%'><font size='4px')'>"+obj.userContent+"</font></div><br/>")     //评论内容
-                       $(".comments").append("</div>")
-                       if(obj.replyContent !=null){
-                           $(".comments").append("<font style='color: #0d6eb1;margin-left: 4%'>作者&nbsp;&nbsp;回复: &nbsp;&nbsp;&nbsp;</font>")
-                           $(".comments").append("<font color='red'>"+obj.replyContent+"</font><br/>")
-                       }
-                       $(".comments").append("<br/><br/>")
-                   })
-               }
+                $.each(result,function(index,obj){
+
+                    $(".comments").append("<img src='+obj.yhTx+' style='margin-left: 1%;width: 150px'>");
+                    $(".comments").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                    $(".comments").append("<font size='4px'>"+obj.yhMch+"</font>")
+                    $(".comments").append("<br/><div style='margin-left: 4%'><font size='4px')'>"+obj.userContent+"</font></div><br/>")     //评论内容
+                    if(obj.replyContent !=null){
+                        $(".comments").append("<font style='color: #0d6eb1;margin-left: 4%'>作者&nbsp;&nbsp;回复: &nbsp;&nbsp;&nbsp;</font>")
+                        $(".comments").append("<font color='red'>"+obj.replyContent+"</font><br/>")
+                    }
+                    $(".comments").append("<br/><br/>")
+
+                })
             },error:function(){
 
 
@@ -153,5 +148,6 @@
 
 
 </script>
+
 </body>
 </html>

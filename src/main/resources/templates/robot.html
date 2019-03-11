@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/common/myJs.jsp}"></script>
+    <input type="hidden" name="userid" th:value="${userid}"/>
+    <style type="text/css">
+        .talk_con{
+            width:400px;
+            height:400px;
+            border:1px solid #666;
+            margin:50px auto 0;
+            background:#f9f9f9;
+        }
+        .talk_show{
+            width:380px;
+            height:320px;
+            border:1px solid #666;
+            background:#fff;
+            margin:10px auto 0;
+            overflow:auto;
+        }
+        .talk_input{
+            width:480px;
+            margin:10px auto 0;
+        }
+        .whotalk{
+            width:80px;
+            height:30px;
+            float:left;
+            outline:none;
+        }
+        .talk_word{
+            width:320px;
+            height:26px;
+            padding:0px;
+            float:left;
+            margin-left:10px;
+            outline:none;
+            text-indent:10px;
+        }
+        .talk_sub{
+            width:56px;
+            height:30px;
+            float:left;
+            margin-left:10px;
+        }
+        .atalk{
+            margin:10px;
+        }
+        .atalk span{
+            display:inline-block;
+            background:#0181cc;
+            border-radius:10px;
+            color:#fff;
+            padding:5px 10px;
+        }
+        .btalk{
+            margin:10px;
+            text-align:right;
+        }
+        .btalk span{
+            display:inline-block;
+            background:#ef8201;
+            border-radius:10px;
+            color:#fff;
+            padding:5px 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="max">
+    <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;" >
+        <div style="float: left;margin-top: 2px;margin-left: 10px;">
+            <h4>
+                <a class="navbar-brand" href="javascript:history.go(-1);">返回</a>
+            </h4>
+        </div>
+        <div align="center">
+            <h2 >专属客服</h2>
+        </div>
+    </div>
+        <div class="queryid" align='center'>
+            <div style="background-color: #989c95;width: 400px;height: 350px;">
+                <div><img style="width:250px;height: 250px;" src="//gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=f8930ed99e45d688b70fbaf6c5ab167b/b3fb43166d224f4a1bcab4f905f790529922d18d.jpg">
+                </div>
+                <div style="width:100px;height: 50px;">
+                       <div>
+                           <h4>昵称:
+                            <p th:text="${session.user.yhMch}"></p>
+                           </h4>
+                        </div>
+                    <div>
+                        <h4>ID:
+                            <p th:text="${session.user.id}"></p>
+                        </h4>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</div>
+
+<!--机器人-->
+
+<div class="talk_con">
+    <div class="talk_show" id="words">
+        <div class="atalk"><span id="bsay"></span></div>
+        <div class="btalk"><span id="asay"></span></div>
+    </div>
+    <div class="talk_input">
+        <input type="hidden" id="who" value="1">
+        <input type="hidden" id="feifei">
+        <input style="width: 60%;float:left;" type="text" class="talk_word" id="talkwords">
+        <input type="button" value="发送" class="talk_sub" id="talksub" onclick="getText()">
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    function getText(){
+        var Words = document.getElementById("words");
+        var TalkWords = document.getElementById("talkwords");
+        //定义空字符串
+        var str = "";
+        str = '<div class="btalk"><span>用户:' + TalkWords.value +' </span></div>' ;
+        Words.innerHTML = Words.innerHTML + str;
+        getTokingJQ();
+    }
+    function getTokingJQ() {
+        var text =$("#talkwords").val();
+        if(text == ""){
+            alert("消息不能为空");
+            return;
+        }else{
+            $.ajax({
+                url:"/robot/talkToRobot",
+                data:{text:text},
+                type:"post",
+                dataType:"json",
+                success:function(data){
+                    $("#feifei").val(data.content);
+                    var Words = document.getElementById("words");
+                    var str = "";
+                    str = '<div class="atalk"><span>专属客服 :' + data.content +'</span></div>';
+                    Words.innerHTML = Words.innerHTML + str;
+                },
+                error:function(){
+
+                }
+            })
+        }
+
+        $("#talkwords").val("");
+
+    }
+
+</script>
+</html>
