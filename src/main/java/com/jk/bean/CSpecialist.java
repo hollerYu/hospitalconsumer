@@ -15,9 +15,9 @@ public class CSpecialist {
 
     private String address;
 
-    private Integer look;
+    private int look;
 
-    private Integer medal;
+    private int medal;
 
     private String img;
 

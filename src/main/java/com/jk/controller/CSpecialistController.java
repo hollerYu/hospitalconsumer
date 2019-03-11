@@ -22,10 +22,8 @@ public class CSpecialistController {
     @Resource
     private CSpecialistService cSpecialistService;
 
-
     @Resource
-    private RedisTemplate<String,Object> redisTemplate;
-
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 专家拙见查询
@@ -38,8 +36,6 @@ public class CSpecialistController {
 
         return cSpecialistService.queryCSpecialist();
     }
-
-
 
     /**
      * 详情页面
@@ -59,14 +55,14 @@ public class CSpecialistController {
      */
     @ResponseBody
     @RequestMapping("/getDetailById")
-    public CSpecialist getDetailById(Integer id,HttpSession session) {
+    public CSpecialist getDetailById(Integer id, HttpSession session) {
         CSpecialist detailById = cSpecialistService.getDetailById(id);
-        User user=(User)session.getAttribute("user");
-        if (user !=null){
-            if(!redisTemplate.hasKey("lookNumber"+user.getId())){   //如果不存在   浏览次数就加 1
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (!redisTemplate.hasKey("lookNumber" + user.getId())) {   //如果不存在   浏览次数就加 1
                 //增加  观看次数
                 cSpecialistService.updateLookById(id);
-                redisTemplate.opsForValue().set("lookNumber"+user.getId(),1,30, TimeUnit.MINUTES);
+                redisTemplate.opsForValue().set("lookNumber" + user.getId(), 1, 30, TimeUnit.MINUTES);
             }
         }
         return detailById;
@@ -97,6 +93,22 @@ public class CSpecialistController {
             return "-1"; //未登录，不能评论
         }
 
+    }
+
+    /***
+     *回显登录用户评论过的星
+     * @return
+     */
+    @RequestMapping("/getUserCommentById")
+    @ResponseBody
+    public CComment getUserCommentById(Integer specialistId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        CComment commentBean = null;
+        if(user != null){
+            commentBean = cSpecialistService.getUserCommentById(user.getId(), specialistId);
+        }
+
+        return commentBean;
     }
 
     /**
@@ -134,7 +146,6 @@ public class CSpecialistController {
     @ResponseBody
     public List<CComment> getCommentById(Integer specialistId) {
         List<CComment> bean = cSpecialistService.getCommentById(specialistId);
-
         return bean;
     }
 
