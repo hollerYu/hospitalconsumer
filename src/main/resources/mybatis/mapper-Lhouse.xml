@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.LhouseMapper">
+
+    <select id="queryhouse" parameterType="Integer" resultType="lhouse">
+        select * from l_collection where userid = #{userid}
+    </select>
+
+    <insert id="inserthouse">
+         insert into l_collection(collectiontitle,userid,sysDate)
+		  VALUES(#{mintitle},#{userid},now())
+    </insert>
+
+</mapper>

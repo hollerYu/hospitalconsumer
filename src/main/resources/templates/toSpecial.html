@@ -15,7 +15,7 @@
         <div onclick="tosource()" style="width: 700px;height: 100px; border-bottom: 2px solid ;margin-left: 500px;"><span style="float:left"><h1>我的积分</h1></span><span style="float: right;"> <h1> > </h1> </span></div>
     </div>
     <div class="min" style="width: 700px; margin-left: 100px;">
-        <div style="width: 700px;height: 100px; border-bottom: 2px solid ;margin-left: 500px;"><span style="float:left"><h1>我的收藏</h1></span><span style="float: right;"> <h1> > </h1> </span></div>
+        <div onclick="tocollection()" style="width: 700px;height: 100px; border-bottom: 2px solid ;margin-left: 500px;"><span style="float:left"><h1>我的收藏</h1></span><span style="float: right;"> <h1> > </h1> </span></div>
     </div>
     <div class="min" style="width: 700px; margin-left: 100px;">
         <div style="width: 700px;height: 100px;border-bottom: 2px solid ;margin-left: 500px;"><span style="float:left"><h1>我的提问</h1></span><span style="float: right;"> <h1> > </h1> </span></div>
@@ -53,12 +53,17 @@
         }
 
         function fanhui() {
-            location.href="/toIndex";
+            location.href="/index";
         }
 
         function tosource(){
             var userid=$("[name='userid']").val();
             location.href="/toSource?userid="+userid;
+        }
+        //前往收藏
+        function tocollection() {
+            var userid=$("[name='userid']").val();
+            location.href="/toLhouse?userid="+userid;
         }
     </script>
 </html>
