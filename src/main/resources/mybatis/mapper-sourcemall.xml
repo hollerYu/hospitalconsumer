@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.SourcemallMapper">
+
+    <select id="qeuryimgheader" resultType="sourcemall">
+        select * from l_sourcemall
+    </select>
+
+    <update id="forsum" parameterType="Integer" >
+        UPDATE t_mall_user_account set sumsource = #{sum} where id = #{userid}
+    </update>
+
+    <insert id="tosourcecha">
+          insert into y_source(sourcename,source,userid)
+		  VALUES(#{titlename},0- #{useridqqq},#{sourcenumberqqq})
+    </insert>
+    <update id="jiankucun" parameterType="Integer" >
+        UPDATE l_sourcemall set kucun = kucun - 1 where id = #{mallid}
+    </update>
+</mapper>
