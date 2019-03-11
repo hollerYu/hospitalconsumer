@@ -67,11 +67,11 @@
                     arr += "<input type='checkbox' name='aaId' value='" + obj.answerOne + "' style='float: left'><div style='float: left'>" + obj.answerOne + "</div><br/><br/>";
                     arr += "<input type='checkbox' name='aaId' value='" + obj.answerTwo + "' style='float: left'><div>" + obj.answerTwo + "</div><br/>";
 
-                    if (obj.answerThree != null) {
+                    if (obj.answerThree != null && obj.answerThree != "") {
                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerThree + "' style='float: left'><div>" + obj.answerThree + "</div><br/>";
                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerFour + "' style='float: left'><div>" + obj.answerFour + "</div><br/>";
                         arr += "<input type='checkbox' name='aaId' value='" + obj.answerFive + "' style='float: left'><div>" + obj.answerFive + "</div><br/>";
-                     if(obj.answerSix!=null){
+                     if(obj.answerSix!=null && obj.answerSix !=""){
                          arr += "<input type='checkbox' name='aaId' value='" + obj.answerSix + "' style='float: left'><div>" + obj.answerSix + "</div><br/>";
                          arr += "<input type='button' class='btn btn-default' value='提交答问卷' onclick='addSurveyYjm(\"" + questionOne + "\")'>"
                      }
