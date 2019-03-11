@@ -31,8 +31,6 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public List<QuestSurvey> querySurvey() {
         Query query = new Query();
-      //  query.addCriteria(Criteria.where("ClassObj.$id").is(new ObjectId(query.geti)));
-
         List<QuestSurvey> logList = mongoTemplate.find(query, QuestSurvey.class);
 
         return logList;
@@ -52,9 +50,9 @@ public class SurveyServiceImpl implements SurveyService {
             asy.setAnswerValue(answer[i]);
 
             mongoTemplate.insert(asy);
-            //添加积分
-            commentMapper.addCountByUseId(userId);
         }
+        //添加积分
+        commentMapper.addCountByUseId(userId);
     }
 
     // 根据用户id查询 用户是否 已经 提交过问卷 了

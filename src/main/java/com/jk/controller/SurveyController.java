@@ -43,29 +43,12 @@ public class SurveyController {
     //问卷调查  查询
     @RequestMapping("querySurvey")
     @ResponseBody
-    public List<QuestSurvey> querySurvey(){
+    public List querySurvey(){
 
-        List<QuestSurvey> questSurvey= surveyService.querySurvey();
+        List questSurvey= surveyService.querySurvey();
 
         return questSurvey;
     }
-
-   /* @RequestMapping("add")
-    public String add() {
-    /surveyYjm/toQuestionSurvey
-        QuestSurvey questSurvey = new QuestSurvey();
-
-        questSurvey.setQuestionOne("你所在的医疗机构?");
-        questSurvey.setAnswerOne("A、三甲医院");
-        questSurvey.setAnswerTwo("B、私立医院");
-        questSurvey.setAnswerThree("C、社区服务中心");
-        questSurvey.setAnswerFour("D、诊所");
-        questSurvey.setAnswerFive("E、其他");
-
-        mongoTemplate.save(questSurvey);
-
-        return null;
-    }*/
 
     //提交测评
     @RequestMapping("addSurveyYjm")
