@@ -10,4 +10,7 @@ public interface LoginService {
     User LoginUserByYhMchByYhMm(User user);
 
     List queryoneUser(Integer userid);
+
+    //查询用户名是否  存在
+    User checkUserMch(String userName);
 }

@@ -8,4 +8,12 @@
     <select id="queryoneUser" parameterType="Integer" resultType="user">
         select yh_nch as yhNch,Id as id,photo as photo from t_mall_user_account where id = #{userid}
     </select>
+
+    <!--查询用户名是否存在-->
+    <select id="checkUserMch" resultType="User">
+
+        select id,yh_mch yhMch,yh_mm yhMm,photo from t_mall_user_account where yh_mch = #{yhMch}
+    </select>
+
+
 </mapper>

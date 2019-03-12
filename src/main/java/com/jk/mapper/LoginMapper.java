@@ -9,4 +9,7 @@ public interface LoginMapper {
     User LoginUserByYhMchByYhMm(User user);
 
     List queryoneUser(@Param("userid") Integer userid);
+
+    //查询用户名是否存在
+    User checkUserMch(String userName);
 }
