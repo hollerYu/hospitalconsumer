@@ -10,7 +10,6 @@
  */
 package com.jk.controller;
 
-import com.jk.bean.Expertliterature;
 import com.jk.bean.User;
 import com.jk.service.LoginService;
 import com.jk.service.impl.email;
@@ -21,6 +20,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +42,13 @@ import java.util.List;
 public class LoginnController {
 
     @Autowired
-    private LoginService loginService;
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
-    private email emailService;
+    private LoginService loginService;
+/*
+    @Autowired
+    private email emailService;*/
 
     @RequestMapping("tologin")
     public String login(){
@@ -82,7 +85,7 @@ public class LoginnController {
     @RequestMapping("registertwo")
     @ResponseBody
     public String registertwo(@RequestParam("to") String to, String title){
-        emailService.sendSimple(to,title,title);
+        amqpTemplate.convertAndSend("queue-email", to,title);
         return "1";
     }
 
