@@ -20,7 +20,7 @@ public interface CSpecialistMapper {
 
     int updateByPrimaryKey(CSpecialist record);
 
-    @Select("select * from c_specialist")
+    @Select("select * from c_specialist where status  = 1")
     List<CSpecialist> queryCSpecialist();
 
     void updateLookById(Integer id);

@@ -31,8 +31,7 @@
         </div>
         <div>
             <font color="#00bfff" size="3">送勋章</font>&nbsp;&nbsp;&nbsp;
-            <input id="input-21e" value="0" type="text" class="rating" data-min=0 data-max=5 data-step=1 data-size="xs"
-                   title="">
+            <input id="input-21e" value="0" type="text" class="rating" data-min=0 data-max=5 data-step=1 data-size="xs" title="">
             <hr>
         </div>
         <div style="margin-left: 80%">
@@ -50,6 +49,7 @@
     $(function () {
         getDetailToHtml();
         getCommentToHtml();
+        getUserCommentById();
     })
     var id = [[${param.id}]]
 
@@ -123,6 +123,24 @@
                 alert("出错了!!!!");
             }
         })
+    }
+
+    function getUserCommentById() {
+        $.ajax({
+            url: "/cspecialist/getUserCommentById",
+            type: "post",
+            data: {specialistId: id},
+            success: function (result) {
+                if (result != null && result!="" ){
+                   $('.filled-stars').css('width',result.star*20+'%')
+                }
+                //alert($("#input-21e").val());
+            },
+            error: function () {
+                alert("出错了!!!!");
+            }
+        })
+
     }
 </script>
 </html>
