@@ -13,6 +13,7 @@ package com.jk.bean;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -50,5 +51,8 @@ public class User implements Serializable {
     private String to;
 
     private Integer sumsource;  //积分
+
+    //用户的角色   一对多关系
+    //private List<Role> roleList;
 
 }

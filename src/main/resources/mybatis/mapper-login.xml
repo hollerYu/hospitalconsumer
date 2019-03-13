@@ -15,5 +15,18 @@
         select id,yh_mch yhMch,yh_mm yhMm,photo from t_mall_user_account where yh_mch = #{yhMch}
     </select>
 
+ <select id="puerybyid" >
+
+    select tk.`key` from t_mall_user_account tu,t_user_power tup,t_key tk
+
+    where tu.id=tup.user_id and tup.power_key_id=tk.id
+
+ </select>
+
+<!--根据用户名 查询 密码-->
+    <select id="selectPwdByUserName" resultType="User">
+
+        select id,yh_mch yhMch,yh_mm yhMm,photo from t_mall_user_account where yh_mch=#{username}
+    </select>
 
 </mapper>

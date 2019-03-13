@@ -28,8 +28,8 @@ public class SpecialisController {
     @Resource
     private SpecialisService specialisService;
    //跳转到主页的方法
-   @RequestMapping("index")
-   public String index(){
+   @RequestMapping("toIndex")
+   public String toIndex(){
 
        return "index";
    }

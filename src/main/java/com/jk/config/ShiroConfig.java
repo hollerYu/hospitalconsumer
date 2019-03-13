@@ -1,6 +1,7 @@
 package com.jk.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import shiroInfo.MyShiroRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -28,60 +29,50 @@ public class ShiroConfig {
      */
     @Bean
     public ShiroDialect shiroDialect() {
-
         return new ShiroDialect();
     }
 
     @Bean
     public SecurityManager securityManager() {
-
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm
         securityManager.setRealm(myShiroRealm());
-
         return securityManager;
-
     }
 
     @Bean
-    public MyRealm myShiroRealm() {
-        MyRealm myShiroRealm = new MyRealm();
+    public MyShiroRealm myShiroRealm() {
+        MyShiroRealm myShiroRealm = new MyShiroRealm();
         return myShiroRealm;
-
     }
-
 
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-
-        System.out.println("ShiroConfiguration.shirFilter()");
-
+    //    System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
         // map的值为anon shiro不会进行拦截
         filterChainDefinitionMap.put("/tologin", "anon");   //去登陆界面
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/common/**", "anon");
+        filterChainDefinitionMap.put("/common/myJs.jsp", "anon");
         filterChainDefinitionMap.put("/Login", "anon");   //登录的验证方法
 
         //shiro会认为只是一个注销的接口
         filterChainDefinitionMap.put("/logout", "logout");
-
         //拦截除上面以外的所有接口
         filterChainDefinitionMap.put("/**", "authc");
-
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //shiro拦截请求后如果发现没有登录 会自动跳转到登录接口
-        shiroFilterFactoryBean.setLoginUrl("/Login");//设置登录的界面
+        shiroFilterFactoryBean.setLoginUrl("/tologin");//设置登录的界面
         // 当检测到没有登录时会自动跳转到登录界面
         // 登录成功后要跳转的链接
-        //shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/index");
         // 未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/weishouquan");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -109,6 +100,5 @@ public class ShiroConfig {
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
-
 
 }

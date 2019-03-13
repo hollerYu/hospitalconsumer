@@ -13,4 +13,10 @@ public interface LoginService {
 
     //查询用户名是否  存在
     User checkUserMch(String userName);
+
+    List<String> puerybyid(Integer id);
+
+    //根据用户名查询 密码
+    User selectPwdByUserName(String username);
+
 }

@@ -19,14 +19,17 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -46,9 +49,7 @@ public class LoginnController {
 
     @Autowired
     private LoginService loginService;
-/*
-    @Autowired
-    private email emailService;*/
+
 
     @RequestMapping("tologin")
     public String login(){
@@ -56,30 +57,36 @@ public class LoginnController {
     }
 
     @RequestMapping("Login")
-    @ResponseBody
-    public String LoginUserByYhMchByYhMm(User user, HttpSession session){
-
+    public String LoginUserByYhMchByYhMm(String username, String password, HttpSession session){
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getYhMch(), user.getYhMm());
-        System.err.println("token=====>"+token);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+     //   System.err.println("token====>"+token);
         try {
             subject.login(token);//登录分两种情况 一种是成功 另一种是失败{1.账号不存在  2.密码错误}
         } catch (IncorrectCredentialsException e) { // catch只会走进其中一个代码块 所以大的异常放到小的异常下面
             System.out.println("用户名和密码不匹配");
             session.setAttribute("msg", "用户名和密码不匹配");
-            return "-1";
+            return "login";
         } catch (UnknownAccountException e) {
             System.out.println("未知账号");
             session.setAttribute("msg", "未知账号");
-            return "-2";
+            return "login";
         } catch (AuthenticationException e) {
             e.printStackTrace();
             session.setAttribute("msg", "未知异常");
-            return "0";
+            return "login";
         }
-        session.setAttribute("user",token);
-           return "1";  //校验密码完成
+        System.out.println("校验密码完成");
+        return "index";
     }
+
+    @RequestMapping("queryadd")
+    @RequiresPermissions("user:add")
+    public String queryadd(){
+        System.out.println("权限成功了");
+        return "/add";
+    }
+
 
     //发送邮箱
     @RequestMapping("registertwo")

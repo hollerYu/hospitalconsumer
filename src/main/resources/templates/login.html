@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/js/loginAngRegister/css/base.css"/>
     <link rel="stylesheet" href="/js/loginAngRegister/css/login.css"/>
     <link rel="stylesheet" href="/js/layer/theme/default/layer.css"/>
+
 </head>
 <body>
 <div id="main">
@@ -18,14 +19,15 @@
                 <span>登录</span>
                 <a href="register.html">去注册</a>
             </div>
-            <form autocomplete="off" id="form">
+            <center><span th:text="${session.msg}"></span></center>
+            <form autocomplete="off" id="form" action="/Login" method="post">
                 <div class="default">
                     <p>请输入用户名或手机号码</p>
-                    <input id="uname" name="yhMch" data-form="uname" type="text" placeholder="用户名/手机"/>
+                    <input id="uname" name="username" data-form="uname" type="text" placeholder="用户名/手机"/>
                 </div>
                 <div class="default">
                     <p>请输入账号密码</p>
-                    <input id="upwd" name="yhMm" data-form="upwd" type="password" placeholder="密码"/>
+                    <input id="upwd" name="password" data-form="upwd" type="password" placeholder="密码"/>
                 </div>
                 <div class="submit">
                     <div class="notice">
@@ -34,7 +36,7 @@
                             <!--<input type="checkbox" id="loginCheckedId" class="box_01_box" onchange="autoMaster()">自动登录-->
                         </div>
                     </div>
-                    <input type="button" class="s_hover" value="登录" onclick="submitForm()">
+                    <input type="submit" class="s_hover" value="登录" >
                 </div>
             </form>
             <div class="other_login">

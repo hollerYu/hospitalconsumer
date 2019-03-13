@@ -66,7 +66,7 @@
                 }else{
                     $.each(result,function(index,obj){
                         $(".comments").append("<div style='background-color: #9C9C9C;'>")
-                        $(".comments").append("<img src='+obj.yhTx+' style='margin-left: 1%;width: 150px'>");
+                        $(".comments").append("<img src='"+obj.yhTx+"' style='margin-left: 1%;width: 150px'>");
                         $(".comments").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
                         $(".comments").append("<font size='4px'>"+obj.yhMch+"</font>")
                         $(".comments").append("<br/><div style='margin-left: 4%'><font size='4px')'>"+obj.userContent+"</font></div><br/>")     //评论内容
@@ -132,7 +132,7 @@
                     }
                 },
                 "cancel": {
-                    "label": "<i class='icon-info'></i> 取消",
+                    "label": "<i class='icon-shiroInfo'></i> 取消",
                     "className": "btn-sm btn-danger",
                     "handler": function () {
                     }

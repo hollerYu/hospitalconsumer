@@ -12,4 +12,10 @@ public interface LoginMapper {
 
     //查询用户名是否存在
     User checkUserMch(String userName);
+
+    List<String> puerybyid(Integer id);
+
+    //根据 用户名  查询  密码
+    User selectPwdByUserName(String username);
+
 }

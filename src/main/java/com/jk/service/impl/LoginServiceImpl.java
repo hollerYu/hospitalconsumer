@@ -47,4 +47,14 @@ public class LoginServiceImpl implements LoginService {
 
         return loginMapper.checkUserMch(userName);
     }
+
+    @Override
+    public List<String> puerybyid(Integer id) {
+        return loginMapper.puerybyid(id);
+    }
+
+    @Override
+    public User selectPwdByUserName(String username) {
+        return loginMapper.selectPwdByUserName(username);
+    }
 }
