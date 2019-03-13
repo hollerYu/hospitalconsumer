@@ -41,4 +41,10 @@ public class LoginServiceImpl implements LoginService {
     public List queryoneUser(Integer userid) {
         return loginMapper.queryoneUser(userid);
     }
+
+    @Override
+    public User checkUserMch(String userName) {
+
+        return loginMapper.checkUserMch(userName);
+    }
 }
