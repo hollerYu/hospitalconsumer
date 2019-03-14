@@ -1,8 +1,9 @@
 package com.jk.controller;
 
-import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.naming.AuthenticationException;
 
 /**
  * 业精于勤荒于嬉,行成于思毁于随

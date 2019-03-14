@@ -6,6 +6,9 @@
     <script src="/js/jquery-2.0.3.min.js"></script>
 </head>
 <body>
+    <!--用户id-->
+    <input type="hidden" id="userid" th:value="${userid}">
+
     <input type="hidden" id="ids" th:value="${ids}">
     <!--答对的题-->
     <input type="hidden" id="str" th:value="${str}">
@@ -20,6 +23,7 @@
     <script>
      $(function(){
          var arr = $("#ids").val();
+         console.log(arr);
          var replace = arr.replace(","," ");
          var ids = new Array();
          ids+= ids+= replace;
@@ -28,7 +32,6 @@
      })
      //查询错题
      function selectintergrn(ids){
-       console.log(ids);
         $.ajax({
          url:"/queryerror",
          type:"post",
@@ -56,22 +59,51 @@
          url:"/userbb",
          type:"post",
          success:function(data){
+          //用户赋值
           $("#sp").html(data.yhMch);
+          //答对的题
           var result = $("#str").val();
           var list = new Array();
+          list.push(0);
           list+=list+=result;
-          $("#sp2").html(list.length);
-          var number = parseInt(result);
-          var aa = number*2;
-          console.log("---"+aa);
+          var num = 0;
+          for(var i=0;i<list.length;i++){
+             debugger;
+             if(i%2!=0){
+               num++;
+             }
+          }
+          $("#sp2").html(num);
+          var aa = num*2;
           $("#sp3").html(aa);
+          //增加积分
+          integraltwo()
          },
          error:function(){
           alert("失败了");
          }
        })
      }
-
+     //增加积分
+     function  integraltwo(){
+       var source = $("#sp3").html();
+       var userid = $("#userid").val();
+       $.ajax({
+         url:"/integraltwo",
+         type:"post",
+         data:{
+          sourcename:"闯关测试",
+          source:source,
+          userid:userid
+         },
+         success:function(){
+           alert("成功了");
+         },
+         error:function() {
+           alert("失败了");
+         }
+       })
+     }
 
 
     </script>

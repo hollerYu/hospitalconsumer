@@ -36,6 +36,7 @@
                     html+="<div style=\"margin-left: 100px;\"><h1 id='mintitle'>"+result[i].minTitle+"</h1></div>"
                     html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result[i].videoPath+"' type=\"video/mp4\"></video>"
                     html+="<div style=\"width: 99.5%\"><span><h2>"+result[i].details+"</h2></span></div>"
+                    html+= "<div style=\"margin-top: 10px;width: 100px;float: left\"><b><h4><button type=\"button\" class=\"btn btn-primary\" onclick='derive("+result[i].id+")'>导出文章</button></h4></b></div>"
                     html+="</div>"
                     html+="<div id=\"bottom\" style=\"background-color: lightgoldenrodyellow;width: 100%; height: 120px;margin-top: 10px;position:fixed;bottom: 0px;\">" +
                         "<div onclick='tolinchuangwenxian()' style='width: 150px;line-height: 35px;float: left;margin-left: 150px;'><img style='width: 95px;height: 50px;' src='/lxb/images/timg.jpg'/><span><h3>临床文献</h3></span></div>" +
@@ -63,5 +64,20 @@
         location.href="/inserthouse?id="+id+"&mintitle="+mintitle;
         alert("收藏成功！");
     }
+    //导出
+    function derive(id){
+      $.ajax({
+        url:"/derive",
+        type:"post",
+        data:{id:id},
+        success:function(data){
+          alert(data);
+        },
+        error:function(){
+          alert("失败了");
+        }
+      })
+    }
+
 </script>
 </html>

@@ -1,8 +1,5 @@
 package com.jk.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.jk.bean.Quizzesmar;
 import com.jk.bean.User;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,7 +7,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -53,16 +51,19 @@ public class QuizzesmarController {
     @RequestMapping("comparison")
     public List<Quizzesmar>  comparison(String[] lists){
         Query query = new Query();
-            query.addCriteria(Criteria.where("result").ne(lists[0]));
+            query.addCriteria(Criteria.where("result").nin(lists));
         List<Quizzesmar> quizzesmars = mongoTemplate.find(query, Quizzesmar.class);
         return quizzesmars;
     }
     //携带数据跳页面
     @RequestMapping("Inthejump")
-    public String band(String ids, String str, ModelMap model){
+    public String band(String ids, String str, ModelMap model,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        Integer id = user.getId();
         System.out.println(ids+"======="+str);
         model.addAttribute("ids",ids);
         model.addAttribute("str",str);
+        model.addAttribute("userid",id);
       return "integral";
     }
     //查询错题
@@ -71,7 +72,7 @@ public class QuizzesmarController {
     public List<Quizzesmar> queryerror(String[] str){
         System.out.println(str);
         Query query = new Query();
-        query.addCriteria(Criteria.where("_id").in(str));
+        query.addCriteria(Criteria.where("id").in(str));
         List<Quizzesmar> quizzesmars = mongoTemplate.find(query, Quizzesmar.class);
         return quizzesmars;
     }
@@ -82,6 +83,5 @@ public class QuizzesmarController {
         User user = (User)session.getAttribute("user");
         return user;
     }
-
 
 }

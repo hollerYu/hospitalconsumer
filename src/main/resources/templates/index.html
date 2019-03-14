@@ -38,9 +38,9 @@
 </div>
 <!---华丽的分界线---->
 <div style="margin-left:400px">
-      <div style="display:inline-block;">
-        <div style="background:#ccff00">
-            <!--！！！！！注意这时实列，你们自定义路径-->
+      <div style="display:inline-block;"  id="one">
+        <!--<div style="background:#ccff00">
+            &lt;!&ndash;！！！！！注意这时实列，你们自定义路径&ndash;&gt;
             <string><b><font size="4px"><a href="/toLiu?id=1">牛奶蛋白过敏</a></font></b></string>
         </div>
         <div>
@@ -54,7 +54,7 @@
         </div>
         <div>
             <string><b><font size="4px"><a href="/toLiu?id=5">乳母营养</a></font></b></string>
-        </div>
+        </div>-->
       </div>
 
     <div style="display:inline-block;margin-left:80px">
@@ -96,6 +96,7 @@
         specialist();
         specialist2();
         headline();
+        title();
     })
    function specialist(){
     $.ajax({
@@ -162,7 +163,25 @@
    function more2(){
      location.href="/more?fenlei="+2;
    }
-
+   //查询标题
+   function title(){
+     $.ajax({
+       url:"/title",
+       type:"post",
+       success:function(data){
+         var count = "";
+         for (var i=0;i<data.length;i++){
+             count+="<div style=\"background:#ccff00\">";
+             count+="<string><b><font size=\"4px\"><a href=\"/toLiu?id="+data[i].id+"\">"+data[i].maxTitle+"</a></font></b></string>";
+             count+="</div>";
+         }
+        $("#one").html(count);
+       },
+       error:function(){
+         alert("失败了")
+       }
+     })
+   }
 
 
 </script>

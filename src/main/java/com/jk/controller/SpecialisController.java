@@ -1,20 +1,16 @@
 package com.jk.controller;
 
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.jk.bean.Condition;
 import com.jk.bean.Headline;
+import com.jk.bean.Source;
 import com.jk.bean.Specialist;
 import com.jk.service.SpecialisService;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import com.jk.utils.ExportExcel;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -87,9 +83,45 @@ public class SpecialisController {
         model.addAttribute("specialists1",specialists);
         return "MoreExperts";
     }
+    //查询标题
+    @ResponseBody
+    @RequestMapping("title")
+    public List<Condition>  title(){
+        List<Condition> list  = specialisService.title();
+      return list;
+    }
+    //增加积分
+    @ResponseBody
+    @RequestMapping("integraltwo")
+    public String integraltwo(Source source){
+         specialisService.integraltwo(source);
+        return "";
+    }
+    //文章导出
+    @ResponseBody
+    @RequestMapping("derive")
+    public String derive(Integer id) throws Exception{
+        String sheetName="儿童健康文章";
+        String titleName="我的文章";
+        String[] headers = { "id", "文章名称", "文章图片", "文章内容","文章标题" };
+        List<Condition> dataSet = specialisService.selectBookList(id);
+        System.out.println(dataSet);
+        String resultUrl="D:\\book.xls";
+        String pattern="yyyy-MM-dd";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ExportExcel.exportExcel(sheetName, titleName, headers, dataSet, resultUrl, pattern);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ExportExcel.exportExcel(sheetName, titleName, headers, dataSet, resultUrl, pattern);
+            }
+        }).start();
 
-
-
-
+      return "success";
+    }
 
 }

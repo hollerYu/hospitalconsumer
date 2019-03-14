@@ -4,4 +4,19 @@
    <select id="headline" resultType="com.jk.bean.Headline">
     select * from y_headline
    </select>
+   <select id="title" resultType="com.jk.bean.Condition">
+    select id as id,minTitle as minTitle,
+    videoPath AS videoPath,details AS details, title as maxTitle
+    from l_condition
+   </select>
+   <!--增加积分-->
+   <insert id="integraltwo">
+       insert into y_source (sourcename,source,userid)value(#{sourcename},#{source},#{userid})
+   </insert>
+   <!--查询文章-->
+   <select id="selectBookList" resultType="Condition">
+    select id as id,minTitle as minTitle,
+    videoPath AS videoPath,details AS details, title as maxTitle
+    from l_condition where id = #{id}
+   </select>
 </mapper>
