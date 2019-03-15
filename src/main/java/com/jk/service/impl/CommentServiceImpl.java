@@ -1,6 +1,7 @@
 package com.jk.service.impl;
 
 import com.jk.bean.Comment;
+import com.jk.bean.SensitiveWord;
 import com.jk.mapper.CommentMapper;
 import com.jk.service.CommentService;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addComment(Comment comment, Integer id) {
         commentMapper.addComment(comment,id);
+    }
+
+    //查询敏感词
+    @Override
+    public List<SensitiveWord> selectSensitiveword() {
+        return commentMapper.selectSensitiveword();
     }
 }

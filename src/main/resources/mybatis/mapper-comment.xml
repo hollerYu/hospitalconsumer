@@ -21,7 +21,7 @@
 
     <insert id="addComment">
         insert into y_comment(hotPointId,userId,userContent,state,praseCount,createTime,updateTime)
-            values(#{comment.hotPointId},#{id},#{comment.userContent},0,0,now(),now())
+            values(#{comment.hotPointId},#{id},#{comment.userContent},#{comment.state},0,now(),now())
     </insert>
 
 	<!--添加积分-->
@@ -29,6 +29,11 @@
 
 		update t_mall_user_account set sumsource=sumsource+200 where id=#{userId}
 	</update>
+
+	<!--查询  敏感词-->
+	<select id="selectSensitiveword" resultType="SensitiveWord">
+		select sensitiveName from y_sensitiveWord
+	</select>
 
 
 </mapper>
