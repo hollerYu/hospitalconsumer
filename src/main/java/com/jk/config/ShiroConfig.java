@@ -1,7 +1,7 @@
 package com.jk.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import shiroInfo.MyShiroRealm;
+import com.jk.shiroInfo.MyShiroRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -74,7 +74,7 @@ public class ShiroConfig {
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
         // 未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/weishouquan");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/toDontHavePower");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
 

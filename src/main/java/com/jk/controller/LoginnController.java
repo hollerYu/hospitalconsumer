@@ -10,26 +10,22 @@
  */
 package com.jk.controller;
 
-import com.jk.bean.User;
 import com.jk.service.LoginService;
-import com.jk.service.impl.email;
-import lombok.val;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -44,10 +40,10 @@ import java.util.List;
 @Controller
 public class LoginnController {
 
-    @Autowired
+    @Resource
     private AmqpTemplate amqpTemplate;
 
-    @Autowired
+    @Resource
     private LoginService loginService;
 
 
@@ -80,12 +76,14 @@ public class LoginnController {
         return "index";
     }
 
-    @RequestMapping("queryadd")
-    @RequiresPermissions("user:add")
+   /* @ResponseBody
+    @RequiresRoles("normalManamer")
+    @RequestMapping("more")
+    @RequiresPermissions("user:more")
     public String queryadd(){
         System.out.println("权限成功了");
-        return "/add";
-    }
+        return "/MoreExperts";
+    }*/
 
 
     //发送邮箱

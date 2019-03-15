@@ -1,4 +1,4 @@
-package shiroInfo;
+package com.jk.shiroInfo;
 
 import com.jk.bean.User;
 import com.jk.service.LoginService;
@@ -64,16 +64,19 @@ public class MyShiroRealm extends AuthorizingRealm {
         if(password == null){
             return null;
         }
+
+        //wo ->  guster  ps:123456    实参 -> guster  abcpassword123
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username, password.getYhMm(), this.getName());
+        //SimpleAuthenticationInfo 构造方法中只需放入正确的用户名和密码即可
+
+        //清之前的授权信息
+        super.clearCachedAuthorizationInfo(simpleAuthenticationInfo.getPrincipals());
         //获取SESSION 存入对象
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
         HttpSession session = request.getSession();
         session.setAttribute("user",password);
-
-        //wo ->  guster  ps:123456    实参 -> guster  abcpassword123
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username, password.getYhMm(), this.getName());
-        //SimpleAuthenticationInfo 构造方法中只需放入正确的用户名和密码即可
 
         return simpleAuthenticationInfo;//如果此处返回null 会报UnknownAccountException 没有此账号的异常
         //如果用户名和密码不匹配会抛出 IncorrectCredentialsException异常
