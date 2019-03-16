@@ -9,11 +9,14 @@
     <script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
 </head>
 <body>
-<center><string><b><font size="6px">美赞臣婴幼儿营养研究院</font></b></string></center>
-    <div style="margin-left:400px">
+<!--大div start-->
+<div>
+
+<div style="margin-left:425px"><string><b><font size="6px">美赞臣婴幼儿营养研究院</font></b></string></div>
+    <div style="margin-left:425px">
       <font size="3px">欢迎您来到美赞臣婴幼儿营养研究院，这里有最权威的专家团队、<br/>最前沿的热点资讯、最精彩的专家课程，别忘记注册成为我们的会员哦！</font>
     </div>
-<div style="display:inline-block;margin-left:400px">
+<div style="display:inline-block;margin-left:425px">
     <string><b><font size="4px">权威专家</font></b></string>
 </div>
 <div style="display:inline-block;margin-left:281px">
@@ -22,10 +25,10 @@
     </string>
 </div>
 
-<div class="Sbox" style="margin-left:400px">
+<div class="Sbox" style="margin-left:425px">
 </div>
 
-<div style="display:inline-block;margin-left:400px" >
+<div style="display:inline-block;margin-left:425px" >
     <string><b><font size="4px">美赞专家</font></b></string>
 </div>
 <div style="display:inline-block;margin-left:281px">
@@ -34,62 +37,61 @@
     </string>
 </div>
 
-   <div class="Sbox2" style="margin-left:400px">
+   <div class="Sbox2" style="margin-left:425px">
 </div>
 <!---华丽的分界线---->
 <div style="margin-left:400px">
-      <div style="display:inline-block;"  id="one">
-        <!--<div style="background:#ccff00">
-            &lt;!&ndash;！！！！！注意这时实列，你们自定义路径&ndash;&gt;
-            <string><b><font size="4px"><a href="/toLiu?id=1">牛奶蛋白过敏</a></font></b></string>
-        </div>
-        <div>
-            <string><b><font size="4px"><a href="/toLiu?id=2">早产儿营养</a></font></b></string>
-        </div>
-        <div>
-            <string><b><font size="4px"><a href="/toLiu?id=3">婴幼儿营养</a></font></b></string>
-        </div>
-        <div>
-            <string><b><font size="4px"><a href="/toLiu?id=4">母乳研究</a></font></b></string>
-        </div>
-        <div>
-            <string><b><font size="4px"><a href="/toLiu?id=5">乳母营养</a></font></b></string>
-        </div>-->
+      <!--<div style="display:inline-block;">-->
+      <div class="col-md-4" style="width: 160px;height: 250px;background-color: #9acfea;border-radius: 10px;" id="one">
+
       </div>
 
-    <div style="display:inline-block;margin-left:80px">
+    <!--<div style="display:inline-block;margin-left:80px">-->
+        <div class="col-md-4" style="width: 160px;height: 250px;background-color: #9acfea;margin-left: 1px;border-radius: 10px;" >
+            <br/>
         <div >
             <string><b><font size="4px"><a href="/hotPointYjm/toHostPoint" onclick="queryHotPoint()">热点咨询</a></font></b></string>
         </div>
+            <br/>
         <div>
             <string><b><font size="4px"><a href="/toPage?viewName=cspeciaList" onclick="queryHotPoint()">专家灼见</a></font></a></b></string>
         </div>
+            <br/>
         <div>
             <string><b><font size="4px">病例荟萃</font></b></string>
         </div>
+            <br/>
         <div>
             <string><b><font size="4px">实用工具</font></b></string>
         </div>
+            <br/>
         <div>
             <string><b><font size="4px">专家团队</font></b></string>
         </div>
     </div>
 
-    <div style="display:inline-block;margin-left:80px">
+    <div class="col-md-4" style="width: 160px;height: 250px;background-color: #9acfea;margin-left: 1px;border-radius: 10px;" >
+        <br/>
         <div>
             <string><b><font size="4px"><a href="/toSpecialHtml">我的专区</a></font></b></string>
         </div>
+           <br/>
         <div>
             <string><b><font size="4px">学分课程</font></b></string></string>
         </div>
+           <br/>
         <div>
             <string><b><font size="4px"><a href="/game/addGamess">冲浪闯关</a></font></b></string>
         </div>
+           <br/>
         <div>
             <string><b><font size="4px"><a href="/robot/torobot">专属客服</a></font></b></string>
         </div>
     </div>
 </div>
+<!--大div end-->
+</div>
+
 </body>
 <script type="text/javascript">
     $(function () {
@@ -171,7 +173,8 @@
        success:function(data){
          var count = "";
          for (var i=0;i<data.length;i++){
-             count+="<div style=\"background:#ccff00\">";
+             count+="<div>";
+             count+="<br/>";
              count+="<string><b><font size=\"4px\"><a href=\"/toLiu?id="+data[i].id+"\">"+data[i].maxTitle+"</a></font></b></string>";
              count+="</div>";
          }

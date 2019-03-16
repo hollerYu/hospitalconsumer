@@ -1,10 +1,5 @@
 package com.jk.controller;
 
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import javax.naming.AuthenticationException;
-
 /**
  * 业精于勤荒于嬉,行成于思毁于随
  *
@@ -12,13 +7,13 @@ import javax.naming.AuthenticationException;
  * @Created by wuzhuang
  */
 
-@ControllerAdvice
+//@ControllerAdvice
 public class MyControllerAdvice {
 
-    @ExceptionHandler(value = AuthenticationException.class)
+/*    @ExceptionHandler(value = AuthenticationException.class)
     public String errorHandler(Exception ex) {
         System.out.println("查询全局异常了");
         return "weishouquan";
-    }
+    }*/
 
 }

@@ -25,6 +25,7 @@
     </properties>
 
     <dependencies>
+
         <!--log4j start-->
         <dependency>
             <groupId>log4j</groupId>
