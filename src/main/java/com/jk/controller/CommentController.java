@@ -1,12 +1,9 @@
 package com.jk.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.jk.bean.Comment;
-import com.jk.bean.HotPoint;
+import com.jk.bean.SensitiveWord;
 import com.jk.bean.User;
 import com.jk.service.CommentService;
-import com.jk.service.HotPointService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,15 +45,33 @@ public class CommentController {
     //新增评论
     @RequestMapping("addComment")
     @ResponseBody
-    public Boolean addComment(Comment comment, HttpSession session){
+    public String addComment(Comment comment, HttpSession session){
         User user = (User)session.getAttribute("user");
-        //新增评论
-        try {
-            commentService.addComment(comment,user.getId());
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        //查询敏感词
+       List<SensitiveWord> list= commentService.selectSensitiveword();
+       String aa="";
+       Boolean equals=null;
+       // 未填写 评论 内容
+        if(comment.getUserContent()!=null && comment.getUserContent()!=""){
+            for (SensitiveWord sensitiveWord : list) {
+              equals = sensitiveWord.getSensitiveName().contains(comment.getUserContent().trim());
+              aa += equals==null?equals:","+equals;
+                System.err.println("aa"+aa);
+            }
+            if(aa.contains("true")){    //不包含  敏感词
+                comment.setState(2);
+                //新增评论
+                commentService.addComment(comment,user.getId());
+                return "0";
+            }else{
+                comment.setState(1);
+                //新增评论
+                commentService.addComment(comment,user.getId());
+                return "1";      //不包含  敏感词
+            }
         }
+        return "2";  //未填写内容
     }
+
+
 }

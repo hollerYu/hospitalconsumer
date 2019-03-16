@@ -1,6 +1,7 @@
 package com.jk.mapper;
 
 import com.jk.bean.Comment;
+import com.jk.bean.SensitiveWord;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface CommentMapper {
     //添加积分
     void addCountByUseId(Integer userId);
 
+    // 查询 敏感词
+    List<SensitiveWord> selectSensitiveword();
 }

@@ -1,6 +1,7 @@
 package com.jk.service;
 
 import com.jk.bean.Comment;
+import com.jk.bean.SensitiveWord;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface CommentService {
 
     //新增评论
     void addComment(Comment comment, Integer id);
+
+    List<SensitiveWord> selectSensitiveword();
 }
