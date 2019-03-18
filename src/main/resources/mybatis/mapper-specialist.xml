@@ -19,4 +19,24 @@
     videoPath AS videoPath,details AS details, title as maxTitle
     from l_condition where id = #{id}
    </select>
+    <!--查询手机号-->
+   <select id="httpclientphone" resultType="com.jk.bean.User">
+      select Id as id,yh_mch as yhMch,
+         yh_nch as yhNch, yh_mm as yhMm,
+         yh_xm as yhXm,yh_shjh as yhShjh,
+         yh_yx as yhYx, yh_tx as yhTx,
+         yh_jb as yhJb
+         from  t_mall_user_account where yh_shjh=#{phone}
+   </select>
+   <!--查询用户-->
+   <select id="selectuser" resultType="com.jk.bean.User">
+     select id as id,yh_mch as yhMch,
+         yh_nch as yhNch, yh_mm as yhMm,
+         yh_xm as yhXm,yh_shjh as yhShjh,
+         yh_yx as yhYx, yh_tx as yhTx,
+         yh_jb as yhJb,
+         photo as photo,
+         vip  as vip
+          from t_mall_user_account where id=#{id}
+   </select>
 </mapper>

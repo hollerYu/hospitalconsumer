@@ -1,14 +1,18 @@
 package com.jk.controller;
 
-import com.jk.bean.Condition;
-import com.jk.bean.Headline;
-import com.jk.bean.Source;
-import com.jk.bean.Specialist;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.jk.bean.*;
 import com.jk.service.SpecialisService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import com.jk.utils.ExportExcel;
+import com.jk.utils.HttpClientUtil;
+import com.jk.utils.RestClientFactory;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 @Controller
 public class SpecialisController {
     @Resource
@@ -125,6 +133,80 @@ public class SpecialisController {
         }).start();
 
       return "success";
+    }
+    //手机号登录
+    @RequestMapping("phoneregister")
+    public String register(){
+
+      return "phonelogin";
+    }
+    //获取验证码
+    @ResponseBody
+    @RequestMapping("httpclient")
+    public User  httpclient(String phone, HttpSession session){
+        User user = specialisService.httpclientphone(phone);
+        session.setAttribute("user",user);
+        Map<String,Object> map = new HashMap();
+        int rr =  (int)(Math.random()*899999)+100000;
+        session.setAttribute("rr",rr);
+        map.put("mobile",phone);
+        map.put("tpl_id",124343);
+        map.put("tpl_value","%23code%23%3d"+rr);
+        map.put("key","9fdda7444b70fb376d76056112d3b773");
+        String post = HttpClientUtil.post("http://v.juhe.cn/sms/send", map);
+        System.out.println(post);
+        return user;
+    }
+    //对比验证码
+    @ResponseBody
+    @RequestMapping("logintwo")
+    public String logintwo(Integer code,HttpSession session,ModelMap model){
+        Integer rr = (Integer)session.getAttribute("rr");
+        if(code.equals(rr)){
+          return "1";
+        }else{
+            model.addAttribute("verification","验证码错误，请重新发送");
+          return "2";
+        }
+    }
+    //查询用户
+    @ResponseBody
+    @RequestMapping("selectuser")
+    public User  selectuser(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        User user2 =  specialisService.selectuser(user.getId());
+        session.setAttribute("user2",user2);
+        User user21 = (User)session.getAttribute("user2");
+        return user21;
+    }
+    //es搜索文章
+    @ResponseBody
+    @RequestMapping("article")
+    public String article(String article) throws IOException {
+        List<JSONObject> list = new ArrayList();
+        SearchRequest SearchRequest  = new SearchRequest("test01"); //{}
+        SearchSourceBuilder searchsourcebuilder = new SearchSourceBuilder();  //query
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();  //boll
+        MatchQueryBuilder sku_mch = QueryBuilders.matchQuery("title", article);
+        BoolQueryBuilder must = boolQueryBuilder.must(sku_mch);
+        searchsourcebuilder.query(must);
+        SearchRequest.source(searchsourcebuilder);
+        SearchResponse search = RestClientFactory.getHighLevelClient().search(SearchRequest);
+        JSONObject parseObject = JSONObject.parseObject(String.valueOf(search));
+        JSONObject hits = parseObject.getJSONObject("hits");
+        JSONArray hits1 = hits.getJSONArray("hits");
+        for (Object o : hits1) {
+            JSONObject parseObject2 = JSONObject.parseObject(String.valueOf(o));
+            JSONObject source = parseObject2.getJSONObject("_source");
+            list.add(source);
+        }
+        List list2 = new ArrayList();
+        for (JSONObject jsonObject : list) {
+            list2.add(jsonObject.getString("id"));
+        }
+        System.out.println(list2);
+
+      return "";
     }
 
 }

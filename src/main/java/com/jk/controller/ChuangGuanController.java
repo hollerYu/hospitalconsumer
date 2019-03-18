@@ -2,7 +2,6 @@ package com.jk.controller;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,7 +13,6 @@ public class ChuangGuanController {
 
     @Resource
     private RedisTemplate<String,Integer> redisTemplate;
-
 
 
     //取值

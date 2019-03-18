@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="/login/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/login/css/demo.css" />
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="/login/css/component.css" />
+    <!--[if IE]>
+    <script src="/login/js/html5.js"></script>
+    <![endif]-->
+    <script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+</head>
+<body>
+<input type="hidden"  id="username">
+<input type="hidden"  id="password">
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <h3>手机号登陆</h3>
+                <input type="hidden" th:value="${verification}">
+                <form action="#" name="f" method="post">
+                    <div class="input_outer">
+                        <div>
+                            <span class="u_user"></span>
+                            <input name="phone" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入手机号">
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary" onclick="sending()" id="five">获取验证码</button>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input name="logpass" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" id="code" placeholder="请输入验证码">
+                    </div>
+                    <div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF" onclick="login()">登录</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!-- /container -->
+<script src="/login/js/TweenLite.min.js"></script>
+<script src="/login/js/EasePack.min.js"></script>
+<script src="/login/js/rAF.js"></script>
+<script src="/login/js/demo-1.js"></script>
+<div style="text-align:center;">
+</div>
+</body>
+<script type="text/javascript">
+    var interval = null;//计时器
+    var i = 60;
+    function sending(){
+        clearInterval(interval);
+        interval = setInterval(overs,1000);//启动计时器，调用overs函数，
+        var aa = $("[name='phone']").val();
+        alert(aa);
+        $.ajax({
+            url:"/httpclient",
+            type:"post",
+            data:{phone:aa},
+            success:function(data){
+                $("#username").val(data.yhMch);
+                $("#password").val(data.yhMm);
+            },
+            error:function(){
+                alert("失败了");
+            }
+        })
+    }
+    function overs(){
+        if(1>i){
+            $("#five").html("重新发送");
+            clearInterval(interval);
+            interval = null;
+            i=60;
+        }else{
+            i--;
+            $("#five").html(i);
+        }
+    }
+    //登陆
+    function login(){
+       var code = $("#code").val();
+       location.href="/logintwo?code="+code;
+       $.ajax({
+           url:"/logintwo",
+           type:"post",
+           data:{code:code},
+           success:function(data){
+             var username = $("#username").val();
+             var password = $("#password").val();
+             if(data=="1"){
+              location.href="/Login?username="+username+"&password="+password;
+             }else{
+              location.href="/login";
+             }
+
+           },
+           error:function(){
+             alert("失败了");
+           }
+       })
+    }
+
+</script>
+</html>

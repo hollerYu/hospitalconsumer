@@ -3,6 +3,7 @@ package com.jk.service.impl;
 import com.jk.bean.Condition;
 import com.jk.bean.Headline;
 import com.jk.bean.Source;
+import com.jk.bean.User;
 import com.jk.mapper.SpecialistMpper;
 import com.jk.service.SpecialisService;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,19 @@ public class SpecialistServiceImpl implements SpecialisService{
     public List<Condition> selectBookList(Integer id) {
         List<Condition> list =specialistMpper.selectBookList(id);
         return list;
+    }
+
+    @Override
+    public User httpclientphone(String phone) {
+        User user = specialistMpper.httpclientphone(phone);
+
+
+        return user;
+    }
+
+    @Override
+    public User selectuser(Integer id) {
+        User user = specialistMpper.selectuser(id);
+        return user;
     }
 }

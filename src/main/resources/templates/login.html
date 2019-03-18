@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,7 +17,7 @@
         <div class="register">
             <div class="title">
                 <span>登录</span>
-                <a href="register.html">去注册</a>
+                <a href="/phoneregister">手机号登陆</a>
             </div>
             <center><span th:text="${session.msg}"></span></center>
             <form autocomplete="off" id="form" action="/Login" method="post">
@@ -32,7 +32,7 @@
                 <div class="submit">
                     <div class="notice">
                         <div class="box_01_both_1">
-                            <input type="checkbox" class="box_01_box" name="rememberPwd" th:checked="${userPwd}==null?'false':'checked'">记住密码 &nbsp;
+                            <input type="checkbox" class="box_01_box" value="1" name="rememberPwd">记住密码 &nbsp;
                             <!--<input type="checkbox" id="loginCheckedId" class="box_01_box" onchange="autoMaster()">自动登录-->
                         </div>
                     </div>
@@ -65,23 +65,28 @@
     <div id="footer">
     </div>
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/header.js"></script>
-<script src="/js/login.js"></script>
-<script src="/js/layer/layer.js"></script>
-
 <script type="text/javascript">
-
+    //获取cookie
+    $(function(){
+        //获取cookie
+        var strcookie = document.cookie;//获取cookie字符串
+        var s = unescape(decodeURI(strcookie));
+        var s1 = s.substr(12);
+        var s2 = s1.replace("\"","");
+        var s3 = s2.replace("\"","");
+        var strings = s3.split("#");
+        $("#uname").val(strings[0]);
+        $("#upwd").val(strings[1]);
+        if($("#uname").val()!=""){
+            $("[name='rememberPwd']").prop("checked", true);
+        }
+    })
     function submitForm(){
-
         $.ajax({
-
             url:"/Login",
             type:"post",
             data:$("#form").serialize(),
-
             success:function(result){
-
                 if(result==-1){
                     layer.msg("用户名和密码不匹配")
                 }
