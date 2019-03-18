@@ -7,7 +7,7 @@
    <select id="title" resultType="com.jk.bean.Condition">
     select id as id,minTitle as minTitle,
     videoPath AS videoPath,details AS details, title as maxTitle
-    from l_condition
+    from l_condition where map = 0
    </select>
    <!--增加积分-->
    <insert id="integraltwo">

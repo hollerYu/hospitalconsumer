@@ -35,4 +35,9 @@ public class ConditionServiceImpl implements ConditionService {
     public List queryCondition(Integer id) {
     return conditionMapper.queryCondition(id);
 }
+
+    @Override
+    public List queryAdvertisement() {
+        return conditionMapper.queryAdvertisement();
+    }
 }

@@ -61,6 +61,12 @@
     </script>
 </head>
 <body>
+
+
+<div class="Advertisement" style="float:right;margin-right:55px;margin-top: 100px;width: 300px;height:500px;">
+    <div class="adlist"></div>
+</div>
+
 <!--用户START--->
 <div style="float:left;margin-left:101px">
     <div id="J_fs_col4" class="fs_col4 col_expand">
@@ -253,7 +259,29 @@
         headline();
         title();
         selectuser();
+        AdvertisementList();
     })
+
+    //广告位
+    function AdvertisementList(){
+        $.ajax({
+            url:'/queryAdvertisement',
+            type:'post',
+            success:function (result) {
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+                    html += "<div class='adlist' style='width: 150px;height:200px;float: left;'>" +
+                        "<div style='margin-left: 5px;'><img src="+result[i].pathurl+" style='width:130px;height: 130px;' ></div>" +
+                        "<div style='width: 150px;' align='center'><h6>" + result[i].title + "</h6></div>" +
+                        "<div style='width: 150px;'><h6>"+ result[i].jianjie +"</h6></div>" +
+                        "</div>"
+                }
+                $(".adlist").html(html)
+            }
+        })
+    }
+
+
    function specialist(){
     $.ajax({
      url:"/specialist",
@@ -273,7 +301,6 @@
 
      },
      error:function(){
-        alert("失败了");
      }
     })
    }
@@ -295,7 +322,6 @@
                $(".Sbox2").html(count2);
            },
            error:function(){
-               alert("失败了");
            }
        })
    }
@@ -335,7 +361,6 @@
         $("#one").html(count);
        },
        error:function(){
-         alert("失败了")
        }
      })
    }
@@ -370,11 +395,11 @@
             alert(data);
         },
         error:function(){
-            alert("失败了");
         }
       })
 
    }
+
 
 
 </script>

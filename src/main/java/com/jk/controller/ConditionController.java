@@ -60,4 +60,12 @@ public class ConditionController {
         modelMap.addAttribute("id",id);
         return "tocondition";
     }
+    //广告
+    @RequestMapping("queryAdvertisement")
+    @ResponseBody
+    public List queryAdvertisement(){
+        List list =conditionService.queryAdvertisement();
+        return list;
+    }
+
 }
