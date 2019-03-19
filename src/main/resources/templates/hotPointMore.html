@@ -14,7 +14,6 @@
 <font size="4px" style="margin-left: 1%">精选留言&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="margin-left:85%" href="javascript:void(0)" onclick="addComment()">留言</a>/提问</font>
 <div class="comments" style="margin-left: 1%" >
 
-
 </div>
 
 
@@ -23,7 +22,10 @@
         getHotPointToHtml();
 
         queryComment();
+
+        showErWei();  //加载二维码
     })
+
     //  评论表的id
     var id=[[${param.id}]]
     function getHotPointToHtml(){
@@ -34,17 +36,35 @@
 
             success:function(result){
                 var html = "";
-                html += "<div class='list'>"
-                html += "<a class=\"navbar-brand\" size=\"5px\" href=\"javascript:history.go(-1);\">返回</a>"
-                html += "<div  align=\"center\"><h2>" + result.titles + "</h2></div><br/><br/>"
+                var QRCode= "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+
+                html += "<div class='list'>";
+                html += "<a class=\"navbar-brand\" size=\"5px\" href=\"javascript:history.go(-1);\">返回</a>";
+                html += "<div  align=\"center\"><h2>" + result.titles + "</h2></div><br/><br/>";
+                html+=  '<p style="float: right;margin-right: 5%">扫一扫</p> <img style="float: right;margin-right: 2%" id="ErWei" style="font-family:Microsoft YaHei;"></img>';
                 html += "<div  style='float:left'><h4>" + result.times + "</h4>&nbsp;&nbsp;&nbsp;&nbsp;" + result.seeCount + "人观看" + "</div><br/><br/>"
                 html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result.video+"' type=\"video/mp4\"></video>"
                 html+="<div style=\"width: 99.5%\"><span><h4>"+result.content+"</h4></span></div>"
+
                 html += "</div><br/>"
                 $(".Sbox").html(html)
             },
             error:function(){
                 alert("出错了!!!!");
+            }
+        })
+    }
+    //加载二维码
+    function showErWei() {
+        $("#ErWei").show();
+        var data=this.location.href;
+       // var data="http://192.168.1.177:8082/hotPointYjm/toHotPointMore?id=1";
+        $.ajax({
+            url:"/code/getCode",
+            type:"post",
+            data:{data:data},
+            success:function (result) {
+                $("#ErWei").attr("src","data:image/jpg;base64,"+result)
             }
         })
     }
@@ -56,7 +76,7 @@
             data:{hotPointId:id},
 
             success:function(result){
-                console.log(result.length)
+             //   console.log(result.length)
                 var tx="";
                 var userIds="";
                 if(result.length==0){
@@ -123,7 +143,7 @@
                                     layer.msg("添加成功!!!");   // return true;    不包含敏感词
                                     searcher();
                                 }if(data==0){
-                                    layer.msg("添加失败,维护文明网络环境!!!")  // return false;    包含敏感词
+                                    layer.msg("请文明用词,共同维护网络环境!!!")  // return false;    包含敏感词
                                     searcher();
                                 }
                             }, error: function () {

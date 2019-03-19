@@ -18,9 +18,10 @@
     </div>
 </body>
 <script type="text/javascript">
-
     $(function () {
         condition(id);
+
+        showErWei();
     })
     var id=$("[name='id']").val();
     function condition(id) {
@@ -33,9 +34,9 @@
                     var id = result[i].id;
                     html+="<div id=\"top\" style=\"background-color: lightgoldenrodyellow;width: 100%; height: 50px;\" ><div onclick='fanhui()' style=\"float: left;margin-top: 2px;margin-left: 10px;\"><h4>返回</h4></div><div align=\"center\"><h2>"+result[i].maxTitle+"</h2></div></div>"
                     html+="<div id=\"center\" style=\"width: 100%\">"
-                    html+="<div style=\"margin-left: 100px;\"><h1 id='mintitle'>"+result[i].minTitle+"</h1></div>"
+                    html+="<div style=\"margin-left: 100px;\"><h1 id='mintitle'>"+result[i].minTitle+"</h1><p style=\"float: right;margin-right: 5%\">扫一扫</p> <img style=\"float: right;margin-right: 2%\" id=\"ErWei\" style=\"font-family:Microsoft YaHei;\"></img></div>"
                     html+="<video controls loop  name=\"media\" align=\"center\" style=\"width: 99%;height: 350px;margin-left: 5px;\"><source preload=\"metadata\" src='"+result[i].videoPath+"' type=\"video/mp4\"></video>"
-                    html+="<div style=\"width: 99.5%\"><span><h2>"+result[i].details+"</h2></span></div>"
+                    html+="<div style=\"width: 99.5%\"><span><h4>"+result[i].details+"</h4></span></div>"
                     html+= "<div style=\"margin-top: 10px;width: 100px;float: left\"><b><h4><button type=\"button\" class=\"btn btn-primary\" onclick='derive("+result[i].id+")'>导出文章</button></h4></b></div>"
                     html+="</div>"
                     html+="<div id=\"bottom\" style=\"background-color: lightgoldenrodyellow;width: 100%; height: 120px;margin-top: 10px;position:fixed;bottom: 0px;\">" +
@@ -49,7 +50,20 @@
             }
         })
     }
-
+    //加载二维码
+    function showErWei() {
+        $("#ErWei").show();
+        var data=this.location.href;
+        // var data="http://192.168.1.177:8082/hotPointYjm/toHotPointMore?id=1";
+        $.ajax({
+            url:"/code/getCode",
+            type:"post",
+            data:{data:data},
+            success:function (result) {
+                $("#ErWei").attr("src","data:image/jpg;base64,"+result)
+            }
+        })
+    }
 
     function tolinchuangwenxian(){
         location.href="/tolinchuangwenxian?id="+id;

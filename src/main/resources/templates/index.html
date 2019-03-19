@@ -339,7 +339,6 @@
      type:"post",
      data:{assort:1},
      success:function(data){
-     // console.log(data)
        var count ="";
        for(i=0;i<data.length;i++){
            count+="<div  style=\"display:inline-block;background:pink\">";
@@ -421,9 +420,8 @@
        url:"/selectuser",
        type:"post",
        success:function(data){
-           console.log(data);
            $("#img").attr("src",data.photo);
-           if(data.vip==1){
+           if(data.vip==0){
                $("#useraa").append("您为普通用户："+data.yhMch)
            }else{
                $("#useraa").append("您是VIP用户："+"<font color='red'>"+data.yhMch+"</font>")
@@ -443,7 +441,6 @@
         type:"post",
         data:{article:aas},
         success:function(data){
-            alert(data);
         },
         error:function(){
         }

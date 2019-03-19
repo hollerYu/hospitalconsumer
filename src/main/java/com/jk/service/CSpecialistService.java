@@ -24,4 +24,16 @@ public interface CSpecialistService {
     CComment getUserCommentById(Integer userId, Integer specialistId);
 
     void updateLookById(Integer id);
+
+    User getUserVip(Integer id);
+
+    void updateJiFen(int jifen,Integer userId);
+
+    void saveRecord(String titleName, int jifen, Integer userId);
+
+    void updateJiFen02(int jifen, Integer userId);
+
+    void saveRecord02(String titleName, int jifen, Integer userId);
+
+    void updateUserVip(Integer id);
 }

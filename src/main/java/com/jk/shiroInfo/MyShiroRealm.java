@@ -40,6 +40,11 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = (User)principals.getPrimaryPrincipal();
 
         List<String> keyList=loginService.puerybyid(user.getId());
+        for (String s : keyList) {
+            if(s==null){
+                continue;
+            }
+        }
         //创建授权
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addStringPermissions(keyList);

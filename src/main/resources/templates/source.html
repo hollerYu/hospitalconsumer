@@ -17,12 +17,50 @@
 <div class="jifenxiangqing"></div>
 </body>
 <script type="text/javascript">
-
+    //在这里面输入任何合法的js语句
+    function chongZhi(){
+        layer.open({
+            type: 1 //Page层类型
+            ,area: ['700px', '400px']
+            ,title: '积分充值。'
+            ,shade: 0.6 //遮罩透明度
+            ,maxmin: true //允许全屏最小化
+            ,anim: 1 //0-6的动画形式，-1不开启
+            ,content: '<div style="padding:50px;"><center>10积分/1元</center>' +
+                '<input type="radio" name="jifen" onclick="emptyText()" value="10">100积分' +
+                '<input type="radio" name="jifen" onclick="emptyText()" value="30">300积分' +
+                '<input type="radio" name="jifen" onclick="emptyText()" value="50">500积分<br/>' +
+                '<input type="number" name="zdy" id="zdy" placeholder="自定义充值/元" onfocus="empty()" class="form-control">' +
+                '<div style="margin-top: 70px;margin-left: 80%"><button type="button" onclick="addMongo()"  class="btn btn-primary">确定</button></div>' +
+                '</div>'
+        });
+    }
     $(function () {
         init();
         jifenxiang();
     })
 
+    function addMongo(){
+        var jifen = $("input[type='radio']:checked").val();
+        var jifenx = $("#zdy").val();
+        if (jifen ==null && jifenx ==null) {
+            layer.msg('请填写要充值的积分!')
+        }else if(jifen !=null){
+            location.href="/alipay/zhifu02?jg="+jifen;
+        }else{
+
+            location.href="/alipay/zhifu02?jg="+jifenx;
+        }
+
+    }
+
+    function emptyText(){
+        $("#zdy").val("");
+    }
+
+    function empty(){
+        $('input[type=radio][name="jifen"]:checked').prop("checked", false);
+    }
 
     function init() {
         var userid=$("[name='userid']").val();
@@ -34,7 +72,7 @@
                 for (var i = 0; i < result.length; i++) {
                     var source = result[i].source;
                     html += "<div style='width:200px;height: 50px;margin-left: 200px;'><h1 id='sum'>"+ result[i].source +"</h1>积分</div>"
-                    html += "<div style='width:100px;height: 50px;margin-top: 50px;margin-left: 500px;'><button onclick=\"tosourcemall("+source+")\" style='width:100px;height: 50px;margin-top: 50px;background-color: #00ee00'>积分兑换</button></div>"
+                    html += "<div style='width:100px;height: 50px;margin-top: 50px;margin-left: 500px;'><button onclick='chongZhi()' style='width:100px;height: 50px;margin-top: 50px;background-color: #00ee00'>积分充值</button><button onclick=\"tosourcemall("+source+")\" style='width:100px;height: 50px;margin-top: 50px;background-color: #00ee00'>积分兑换</button></div>"
                 }
                 $(".sumSource").html(html)
                 sum();

@@ -116,7 +116,7 @@ public class SpecialisController {
         String titleName="我的文章";
         String[] headers = { "id", "文章名称", "文章图片", "文章内容","文章标题" };
         List<Condition> dataSet = specialisService.selectBookList(id);
-        System.out.println(dataSet);
+       // System.out.println(dataSet);
         String resultUrl="D:\\book.xls";
         String pattern="yyyy-MM-dd";
         new Thread(new Runnable() {
