@@ -67,11 +67,12 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/common/**", "anon");
         filterChainDefinitionMap.put("/common/myJs.jsp", "anon");
         filterChainDefinitionMap.put("/Login", "anon");   //登录的验证方法
+        filterChainDefinitionMap.put("/toIndexByQQ", "anon");   //登录的验证方法
 
         //shiro会认为只是一个注销的接口
         filterChainDefinitionMap.put("/logout", "logout");
         //拦截除上面以外的所有接口
-       filterChainDefinitionMap.put("/**", "authc");
+     //  filterChainDefinitionMap.put("/**", "authc");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //shiro拦截请求后如果发现没有登录 会自动跳转到登录接口
         shiroFilterFactoryBean.setLoginUrl("/tologin");//设置登录的界面

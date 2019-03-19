@@ -175,10 +175,7 @@ public class SpecialisController {
     @RequestMapping("selectuser")
     public User  selectuser(HttpSession session){
         User user = (User)session.getAttribute("user");
-        User user2 =  specialisService.selectuser(user.getId());
-        session.setAttribute("user2",user2);
-        User user21 = (User)session.getAttribute("user2");
-        return user21;
+        return user;
     }
     //es搜索文章
     @RequestMapping("article")

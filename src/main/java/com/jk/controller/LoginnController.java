@@ -11,6 +11,7 @@
 package com.jk.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jk.bean.User;
 import com.jk.service.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -121,6 +122,21 @@ public class LoginnController {
         return list;
     }
 
+    @RequestMapping("/toIndexByQQ")
+    public String toIndexByQQ(){
+        return "index";
+    }
+
+    @RequestMapping("/toLoginByQQ")
+    @ResponseBody
+    public String toLoginByQQ(String openId,HttpSession session){
+        User user = loginService.toLoginByQQ(openId);
+        if (user ==null){
+            return "0";//此扣扣未绑定账号
+        }
+        session.setAttribute("user",user);
+        return "1";
+    }
 
 
 }

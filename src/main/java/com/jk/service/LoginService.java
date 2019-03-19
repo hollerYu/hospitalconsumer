@@ -19,4 +19,5 @@ public interface LoginService {
     //根据用户名查询 密码
     User selectPwdByUserName(String username);
 
+    User toLoginByQQ(String openId);
 }

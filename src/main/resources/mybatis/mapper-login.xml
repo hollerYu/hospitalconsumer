@@ -14,6 +14,10 @@
 
         select id,yh_mch yhMch,yh_mm yhMm,photo from t_mall_user_account where yh_mch = #{yhMch}
     </select>
+    <select id="toLoginByQQ" resultType="User">
+
+        select id,yh_mch yhMch,yh_mm yhMm,photo,vip from t_mall_user_account where open_id = #{openId}
+    </select>
 
  <select id="puerybyid" >
 
@@ -26,7 +30,7 @@
 <!--根据用户名 查询 密码-->
     <select id="selectPwdByUserName" resultType="User">
 
-        select id,yh_mch yhMch,yh_mm yhMm,photo from t_mall_user_account where yh_mch=#{username}
+        select id,yh_mch yhMch,yh_mm yhMm,photo,vip from t_mall_user_account where yh_mch=#{username}
     </select>
 
 </mapper>

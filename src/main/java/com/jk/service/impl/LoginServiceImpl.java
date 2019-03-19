@@ -57,4 +57,9 @@ public class LoginServiceImpl implements LoginService {
     public User selectPwdByUserName(String username) {
         return loginMapper.selectPwdByUserName(username);
     }
+
+    @Override
+    public User toLoginByQQ(String openId) {
+        return loginMapper.toLoginByQQ(openId);
+    }
 }
