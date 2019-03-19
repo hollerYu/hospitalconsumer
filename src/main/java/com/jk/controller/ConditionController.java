@@ -68,4 +68,12 @@ public class ConditionController {
         return list;
     }
 
+    //专家留言
+    @RequestMapping("queryLeave")
+    @ResponseBody
+    public List queryLeave(){
+        List list = conditionService.queryLeave();
+        return list;
+    }
+
 }

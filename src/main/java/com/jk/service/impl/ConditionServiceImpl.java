@@ -40,4 +40,9 @@ public class ConditionServiceImpl implements ConditionService {
     public List queryAdvertisement() {
         return conditionMapper.queryAdvertisement();
     }
+
+    @Override
+    public List queryLeave() {
+        return conditionMapper.queryLeave();
+    }
 }

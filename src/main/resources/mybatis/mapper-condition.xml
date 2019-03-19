@@ -7,6 +7,10 @@
     </select>
 
     <select id="queryAdvertisement" resultType="advertisement">
-    select  *,path_url as pathurl from t_img
+    select  *,path_url as pathurl from t_img limit 0,4
+    </select>
+
+    <select id="queryLeave" resultType="leave">
+    select  *  from l_leave
     </select>
 </mapper>

@@ -8,4 +8,6 @@ public interface ConditionService {
     List queryAdvertisement();
 
 
+    List queryLeave();
+
 }
