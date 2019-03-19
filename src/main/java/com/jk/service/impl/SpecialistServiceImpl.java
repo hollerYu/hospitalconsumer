@@ -1,9 +1,6 @@
 package com.jk.service.impl;
 
-import com.jk.bean.Condition;
-import com.jk.bean.Headline;
-import com.jk.bean.Source;
-import com.jk.bean.User;
+import com.jk.bean.*;
 import com.jk.mapper.SpecialistMpper;
 import com.jk.service.SpecialisService;
 import org.springframework.stereotype.Service;
@@ -53,5 +50,16 @@ public class SpecialistServiceImpl implements SpecialisService{
     public User selectuser(Integer id) {
         User user = specialistMpper.selectuser(id);
         return user;
+    }
+    @Override
+    public List<Integer> article(List list2) {
+        List<Integer> list = specialistMpper.article(list2);
+        return list;
+    }
+
+    @Override
+    public List<Affiche> affiche(Integer start) {
+        List<Affiche> list = specialistMpper.affiche(start);
+        return list;
     }
 }

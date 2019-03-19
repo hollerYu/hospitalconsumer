@@ -13,6 +13,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -180,9 +181,16 @@ public class SpecialisController {
         return user21;
     }
     //es搜索文章
-    @ResponseBody
     @RequestMapping("article")
-    public String article(String article) throws IOException {
+    public String article(String article,ModelMap model) throws IOException {
+        //高亮显示设置
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        //设置全部字段高亮
+        highlightBuilder.field("*").requireFieldMatch(false);
+//      highlightBuilder.field("book_name");
+        highlightBuilder.preTags("<span style='color:red'>");
+        highlightBuilder.postTags("</span>");
+        ///end
         List<JSONObject> list = new ArrayList();
         SearchRequest SearchRequest  = new SearchRequest("test01"); //{}
         SearchSourceBuilder searchsourcebuilder = new SearchSourceBuilder();  //query
@@ -204,9 +212,17 @@ public class SpecialisController {
         for (JSONObject jsonObject : list) {
             list2.add(jsonObject.getString("id"));
         }
-        System.out.println(list2);
-
-      return "";
+        List<Integer> list3  =specialisService.article(list2);
+        model.addAttribute("list3",list3);
+        return "esgrabble";
+    }
+    //查询普通公告
+    @ResponseBody
+    @RequestMapping("affiche")
+    public List<Affiche> affiche(Integer start){
+        List<Affiche> list = specialisService.affiche(start);
+        System.out.println(list);
+        return list;
     }
 
 }

@@ -39,4 +39,15 @@
          vip  as vip
           from t_mall_user_account where id=#{id}
    </select>
+    <select id="article" resultType="Condition">
+        select  *,title as maxTitle from l_condition where id in (
+        <foreach collection="list2" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </select>
+    <!--查询普通公告-->
+    <select id="affiche" resultType="Affiche">
+      select id,title,content,start from y_affiche where start=#{start}
+    </select>
 </mapper>

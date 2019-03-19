@@ -1,9 +1,7 @@
 package com.jk.mapper;
 
-import com.jk.bean.Condition;
-import com.jk.bean.Headline;
-import com.jk.bean.Source;
-import com.jk.bean.User;
+import com.jk.bean.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +18,8 @@ public interface SpecialistMpper {
     User httpclientphone(String phone);
 
     User selectuser(Integer id);
+
+    List<Integer> article(@Param("list2")List<Integer> list2);
+
+    List<Affiche> affiche(Integer start);
 }
