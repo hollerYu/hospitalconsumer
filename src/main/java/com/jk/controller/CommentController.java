@@ -49,16 +49,15 @@ public class CommentController {
         User user = (User)session.getAttribute("user");
         //查询敏感词
        List<SensitiveWord> list= commentService.selectSensitiveword();
-       String aa="";
-       Boolean equals=null;
+       StringBuilder aa=new StringBuilder();
+        String s =null;
        // 未填写 评论 内容
         if(comment.getUserContent()!=null && comment.getUserContent()!=""){
             for (SensitiveWord sensitiveWord : list) {
-              equals = sensitiveWord.getSensitiveName().contains(comment.getUserContent().trim());
-              aa += equals==null?equals:","+equals;
-                System.err.println("aa"+aa);
+                Boolean  equals = sensitiveWord.getSensitiveName().contains(comment.getUserContent().trim());
+                s=aa.append(equals == null ? equals : "," + equals).toString();
             }
-            if(aa.contains("true")){    //不包含  敏感词
+            if(s.contains("true")){    //不包含  敏感词
                 comment.setState(2);
                 //新增评论
                 commentService.addComment(comment,user.getId());
