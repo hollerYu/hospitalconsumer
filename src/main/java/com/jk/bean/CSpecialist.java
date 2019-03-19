@@ -28,4 +28,6 @@ public class CSpecialist {
     private String title;
     @JsonFormat(timezone = "GTM+8",pattern = "yyyy-MM-dd")
     private Date creatTime;
+
+    private Integer vip;
 }

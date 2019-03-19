@@ -3,15 +3,18 @@ package com.jk.controller;
 import com.jk.bean.CComment;
 import com.jk.bean.CSpecialist;
 import com.jk.bean.User;
+import com.jk.bean.Vip;
 import com.jk.service.CSpecialistService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jk.service.VipService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -162,4 +165,86 @@ public class CSpecialistController {
         return bean;
     }
 
+    @ResponseBody
+    @RequestMapping("/getUserVip")
+    public String getUserVip(HttpSession session,Integer id){
+        session.setAttribute("spId",id);
+        User user = (User) session.getAttribute("user");
+        User userBean = cSpecialistService.getUserVip(user.getId());
+        if (userBean !=null &&userBean.getVip() ==1){
+            return "1";
+        }else if(redisTemplate.hasKey("spId"+id+"userId"+user.getId())) {
+            return "1";
+        }
+        else{
+            return "0";
+        }
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/getJiFen")
+    public String getJiFen(int jifen,Integer id,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        User userBean = cSpecialistService.getUserVip(user.getId());
+        CSpecialist detailById = cSpecialistService.getDetailById(id);
+        if(userBean.getSumsource()>=jifen){
+            cSpecialistService.updateJiFen(jifen,user.getId());
+            //积分消费记录
+            cSpecialistService.saveRecord(detailById.getTitle(),jifen,user.getId());
+            redisTemplate.opsForValue().set("spId"+id+"userId"+user.getId(), 1, 30, TimeUnit.MINUTES);
+            return "1";
+        }else{
+            return "0";
+        }
+    }
+
+    @RequestMapping("/toPage1")
+    public String alipay(HttpSession session){
+        Integer spId = (Integer) session.getAttribute("spId");
+        User user = (User) session.getAttribute("user");
+        redisTemplate.opsForValue().set("spId"+spId+"userId"+user.getId(), 1, 60, TimeUnit.MINUTES);
+        return "redirect:cSpecialistDetails?id=" + spId;
+    }
+
+    //购买积分
+    @RequestMapping("/toJiFenList")
+    public String toJiFenList(HttpSession session, ModelMap modelMap){
+        User user = (User) session.getAttribute("user");
+        modelMap.addAttribute("userid",user.getId());
+        int jifen = (Integer) session.getAttribute("￥jifen");
+        cSpecialistService.updateJiFen02(jifen,user.getId());
+        cSpecialistService.saveRecord02("够买积分",jifen,user.getId());
+        return "source";
+    }
+
+    @Resource
+    private VipService vipService;
+
+    /**
+     * vipv 支付成功调用
+     * @param session
+     * @return
+     */
+    @RequestMapping("/toVip")
+    public String toVip(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        int days = (Integer) session.getAttribute("days");
+        cSpecialistService.updateUserVip(user.getId());
+        Vip vip = new Vip();
+        vip.setStartTime(new Date());
+        long time = new Date().getTime();
+        long i = days * (1000 * 60 * 60 * 24L);
+        vip.setEndTime(new Date(time+i));
+        vip.setUserId(user.getId());
+        vipService.saveVip(vip);
+        return "redirect:toPage?viewName=cspeciaList";
+    }
+
+
+
+    @RequestMapping("toPage")
+    public String toPage(String viewName){
+        return viewName;
+    }
 }

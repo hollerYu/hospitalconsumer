@@ -2,10 +2,11 @@ package com.jk.service.impl;
 
 import com.jk.bean.CComment;
 import com.jk.bean.CSpecialist;
+import com.jk.bean.User;
 import com.jk.mapper.CCommentMapper;
 import com.jk.mapper.CSpecialistMapper;
+import com.jk.mapper.SourcemallMapper;
 import com.jk.service.CSpecialistService;
-import com.sun.mail.imap.protocol.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class CSpecialistServiceImpl implements CSpecialistService {
     @Autowired
     private CCommentMapper commentMapper;
 
+    @Resource
+    private SourcemallMapper sourcemallMapper;
+
     @Override
     public List<CSpecialist> queryCSpecialist() {
         return cSpecialistMapper.queryCSpecialist();
@@ -35,6 +39,37 @@ public class CSpecialistServiceImpl implements CSpecialistService {
     @Override
     public void updateLookById(Integer id) {
         cSpecialistMapper.updateLookById(id);
+    }
+
+    @Override
+    public User getUserVip(Integer id) {
+
+        return cSpecialistMapper.getUserVip(id);
+    }
+
+    @Override
+    public void updateJiFen(int jifen,Integer userId) {
+        cSpecialistMapper.updateJiFen(jifen,userId);
+    }
+
+    @Override
+    public void saveRecord(String titleName, int jifen, Integer userId) {
+        sourcemallMapper.saveRecord(titleName,jifen,userId);
+    }
+
+    @Override
+    public void updateJiFen02(int jifen, Integer userId) {
+        cSpecialistMapper.updateJiFen02(jifen,userId);
+    }
+
+    @Override
+    public void saveRecord02(String titleName, int jifen, Integer userId) {
+        sourcemallMapper.saveRecord02(titleName,jifen,userId);
+    }
+
+    @Override
+    public void updateUserVip(Integer id) {
+        cSpecialistMapper.updateUserVip(id);
     }
 
     @Override

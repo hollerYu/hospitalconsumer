@@ -45,15 +45,16 @@ public class User implements Serializable {
 
     private String photo;
 
+    private String email;
+
     private String rememberPwd;  //记住密码
     //业务字段
     private String to;
 
-    private Integer sumsource;  //积分
+    private int sumsource;  //积分
 
     //用户的角色   一对多关系
     //private List<Role> roleList;
-
-    private Integer vip;
+    private int vip;
 
 }

@@ -6,6 +6,8 @@
     <script th:src="@{~/common/myJs.jsp}"></script>
 </head>
 <body>
+
+
 <div class="container" style="width: 50%;">
 
     <div id="top" style="background-color: lightgoldenrodyellow;width: 100%; height: 50px;">
@@ -23,9 +25,13 @@
     <br/>
     <div>
         <center>
-            <button type="button" onclick="window.location.href='/toPage?viewName=cspeciaList'" class="btn btn-default btn-lg">大咖在线</button>
+            <button type="button" onclick="window.location.href='/toPage?viewName=cspeciaList'"
+                    class="btn btn-default btn-lg">大咖在线
+            </button>
             <button type="button" class="btn btn-default btn-lg">大家观点</button>
-            <button type="button" onclick="window.location.href='/toPage?viewName=clive'" class="btn btn-default btn-lg">大会直播</button>
+            <button type="button" onclick="window.location.href='/toPage?viewName=clive'"
+                    class="btn btn-default btn-lg">大会直播
+            </button>
         </center>
 
     </div>
@@ -42,11 +48,16 @@
         $.ajax({
             url: '/cspecialist/queryCSpecialist',
             success: function (result) {
+                console.log(result)
                 var html = "";
                 for (var i = 0; i < result.length; i++) {
-                    html += "<div class='list' onclick='getDetails(" + result[i].id + ")' style='width:100%;height:180px;background: oldlace'>"
+                    html += "<div class='list' onclick='getDetails(" + result[i].id + "," + result[i].vip + ")' style='width:100%;height:180px;background: oldlace'>"
                     html += "<div class='img'  style='width:180px;height:180px;float:left'><img width='130' height='150'  src=" + result[i].img + " ></div>"
-                    html += "<div  style='float:left'><h4>" + result[i].title + "</h4></div><br/><br/>"
+                    if (result[i].vip == 1) {
+                        html += "<div  style='float:left'><h4>" + result[i].title + " <font color='red'>vip</font></h4></div><br/><br/>"
+                    } else {
+                        html += "<div  style='float:left'><h4>" + result[i].title + "</h4></div><br/><br/>"
+                    }
                     html += "<div  style='float:left' >" + result[i].name + "&nbsp;-&nbsp;" + result[i].position + " </div><br/><br/>"
                     html += "<div  style='float:left'>" + result[i].address + "</div><br/><br/>"
                     html += "<div  style='float:left'>" + result[i].look + "次观看&nbsp;&nbsp;&nbsp;&nbsp;获得" + result[i].medal + "个奖章" + "</div><br/>"
@@ -57,9 +68,89 @@
         })
     }
 
+    var idd = null
 
-    function getDetails(id) {
-        location.href = "/cspecialist/cSpecialistDetails?id=" + id;
+    function getDetails(id, vip) {
+        idd += id;
+        if (vip == 1) {
+            $.ajax({
+                url: '/cspecialist/getUserVip',
+                data: {id: idd},
+                success: function (result) {
+                    if (result == 1) {
+                        location.href = "/cspecialist/cSpecialistDetails?id=" + id;
+                    } else {
+                        vips();
+                        //$('#myModal').modal("show");
+                    }
+                }
+            })
+        } else {
+            location.href = "/cspecialist/cSpecialistDetails?id=" + id;
+        }
     }
+
+    function vips() {
+        layer.open({
+            type: 1 //Page层类型
+            , area: ['500px', '300px']
+            , title: '查看方式。'
+            , shade: 0.6 //遮罩透明度
+            , maxmin: true //允许全屏最小化
+            , anim: 1 //0-6的动画形式，-1不开启
+            , content: '<div style="padding:50px;">' +
+                '<form>' +
+                '<label><input type="radio" name="11" id="jifen" >消耗10积分查看</label>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '<label><input type="radio" name="11" id="pay" >付费查看/(1)元</label>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '<label><input type="radio" name="11" id="vip" >vip免费观看</label>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '</form>' +
+                '<div style="margin-top: 70px;margin-left: 80%"><button type="button" onclick="addMongo()"  class="btn btn-primary">确定</button></div>' +
+                '</div>'
+        });
+    }
+
+    function addMongo() {
+        var pay = $("#pay").prop("checked");
+        var jifen = $("#jifen").prop("checked");
+        var vip = $("#vip").prop("checked");
+
+
+        if (jifen == false && pay == false && vip == false) {
+            layer.msg('请选择查看方式!');
+            return false;
+        } else {
+            if (jifen == true) {
+                $.ajax({
+                    url: "/cspecialist/getJiFen",
+                    async: true,
+                    type: "POST",
+                    data: {jifen: 10, id: idd},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            layer.msg('消费成功!');
+                            location.href = "/cspecialist/cSpecialistDetails?id=" + idd;
+                        } else {
+                            layer.msg('积分不足!');
+                        }
+                    },
+                    error: function (e) {
+                        alert("网络连接失败，请您稍后再试！");
+                    }
+                });
+            } else if (vip) {
+                location.href = "/toPage?viewName=kaiTongVIP";
+            } else {
+                location.href = "/alipay/zhifu?jg=" + 1;
+            }
+
+        }
+
+    }
+
+    function closed() {
+        document.getElementById("sss").reset();
+    }
+
 </script>
 </html>
