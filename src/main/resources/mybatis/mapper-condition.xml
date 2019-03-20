@@ -13,4 +13,6 @@
     <select id="queryLeave" resultType="leave">
     select  *  from l_leave
     </select>
+
+
 </mapper>

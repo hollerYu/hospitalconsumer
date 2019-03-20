@@ -35,4 +35,13 @@ public class Condition implements Serializable {
 
     private String details;
 
+    //经纬度
+    private String pointxs;
+
+    private String pointys;
+
+    private Integer map;
+
+    private Integer number;
+
 }

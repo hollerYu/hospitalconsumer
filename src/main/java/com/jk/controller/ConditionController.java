@@ -43,6 +43,7 @@ public class ConditionController {
     @ResponseBody
     public List queryCondition(Integer id){
         List list = conditionService.queryCondition(id);
+
         return list;
     }
 

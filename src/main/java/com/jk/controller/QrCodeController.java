@@ -31,6 +31,7 @@ public class QrCodeController {
         return "QrCode";
     }
 
+    //获取二维码
     @RequestMapping("getCode")
     @ResponseBody
     public String getCode(String data) {
