@@ -22,7 +22,8 @@ import java.util.Date;
  * @author SWORD
  * @create 2019/3/11
  * @since 1.0.0
- */@Data
+ */
+@Data
 public class Lhouse implements Serializable {
 
      private Integer id;
@@ -32,4 +33,7 @@ public class Lhouse implements Serializable {
      private Date sysDate;
 
      private Integer userid;
+
+     private Integer count;
+
 }
