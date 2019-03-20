@@ -1,7 +1,7 @@
 /* Header */
 .large-header {
 	position: relative;
-	width: 100%;
+	/*width: 100%;*/
 	background: #333;
 	overflow: hidden;
 	background-size: cover;
