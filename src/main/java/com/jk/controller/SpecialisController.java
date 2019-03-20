@@ -155,7 +155,7 @@ public class SpecialisController {
         map.put("tpl_value","%23code%23%3d"+rr);
         map.put("key","9fdda7444b70fb376d76056112d3b773");
         String post = HttpClientUtil.post("http://v.juhe.cn/sms/send", map);
-        System.out.println(post);
+     //   System.out.println(post);
         return user;
     }
     //对比验证码
@@ -218,7 +218,7 @@ public class SpecialisController {
     @RequestMapping("affiche")
     public List<Affiche> affiche(Integer start){
         List<Affiche> list = specialisService.affiche(start);
-        System.out.println(list);
+     //   System.out.println(list);
         return list;
     }
 

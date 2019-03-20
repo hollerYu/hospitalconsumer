@@ -3,9 +3,7 @@ package com.jk.controller;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.jk.bean.User;
 import com.jk.utils.AlipayConfig;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -124,7 +122,6 @@ public class AlipayController {
 
         //请求
         String result = alipayClient.pageExecute(alipayRequest).getBody();
-
         return result;
     }
 
