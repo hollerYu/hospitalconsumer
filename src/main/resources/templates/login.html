@@ -108,12 +108,30 @@
 
     $(function () {
         //获取cookie
-        var strcookie = document.cookie;//获取cookie字符串
-        var s = unescape(decodeURI(strcookie));
-        var s1 = s.substr(12);
-        var s2 = s1.replace("\"", "");
+        //decodeURIComponent  解码
+        var cookie=document.cookie;
+       //console.log("-=====>"+cookie)
+        var cookieList=cookie.split(";");
+        var content="";
+        var count=0;
+        $.each(cookieList, function (index,obj) {
+            console.log("========>"+obj);
+            if (obj.trim().substr(0,11)=="usernamepwd") {
+                content=obj;
+                count++;
+            }
+        });
+        if (count==0) {
+            return ;
+        }
+        var sp=content.split("=");
+        var sp1=sp[1];
+        //var x=decodeURIComponent(sp1);
+        var s = unescape(decodeURI(sp1));
+        var s2 = s.replace("\"", "");
         var s3 = s2.replace("\"", "");
-        var strings = s3.split("#");
+        console.log(s3+"====")
+        var strings = s3.split(",");
         $("#uname").val(strings[0]);
         $("#upwd").val(strings[1]);
         if ($("#uname").val() != "") {

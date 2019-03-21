@@ -58,7 +58,7 @@ public class LoginnController {
     @RequestMapping("Login")
     public String LoginUserByYhMchByYhMm(String username, String password, HttpSession session, String rememberPwd, HttpServletResponse response){
         if(rememberPwd!=null){
-            String usernamepwd = username+"#"+password;
+            String usernamepwd = username+","+password;
             String str = JSONObject.toJSONString(usernamepwd);
             try {
                 encode = URLEncoder.encode(str, "utf-8");
@@ -75,23 +75,23 @@ public class LoginnController {
             cookie3.setMaxAge(0);
             response.addCookie(cookie3);
         }
-           Subject subject = SecurityUtils.getSubject();
-           UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-           try {
-               subject.login(token);//登录分两种情况 一种是成功 另一种是失败{1.账号不存在  2.密码错误}
-           } catch (IncorrectCredentialsException e) { // catch只会走进其中一个代码块 所以大的异常放到小的异常下面
-               System.out.println("用户名和密码不匹配");
-               session.setAttribute("msg", "用户名和密码不匹配");
-               return "login";
-           } catch (UnknownAccountException e) {
-               System.out.println("未知账号");
-               session.setAttribute("msg", "未知账号");
-               return "login";
-           } catch (AuthenticationException e) {
-               e.printStackTrace();
-               session.setAttribute("msg", "未知异常");
-               return "login";
-           }
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        try {
+            subject.login(token);//登录分两种情况 一种是成功 另一种是失败{1.账号不存在  2.密码错误}
+        } catch (IncorrectCredentialsException e) { // catch只会走进其中一个代码块 所以大的异常放到小的异常下面
+            System.out.println("用户名和密码不匹配");
+            session.setAttribute("msg", "用户名和密码不匹配");
+            return "login";
+        } catch (UnknownAccountException e) {
+            System.out.println("未知账号");
+            session.setAttribute("msg", "未知账号");
+            return "login";
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            session.setAttribute("msg", "未知异常");
+            return "login";
+        }
         System.out.println("校验密码完成");
         return "index";
     }
